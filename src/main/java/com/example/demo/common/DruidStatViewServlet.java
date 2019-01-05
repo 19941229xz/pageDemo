@@ -10,7 +10,7 @@ import com.alibaba.druid.support.http.StatViewServlet;
  *
  * @ClassName: DruidStatViewServlet    
  * @author xiongzh  
- * @date 2018年4月24日  
+ * @date 2018年4月24日   
  */     
 @WebServlet(urlPatterns="/druid/*" , initParams={
 		@WebInitParam(name="allow",value=""),// IP白名单 (没有配置或者为空，则允许所有访问)
