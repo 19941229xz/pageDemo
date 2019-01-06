@@ -1,9 +1,9 @@
-package com.example.demo.common.req;
+package com.example.demo.common;
 
 import lombok.Data;
 
 @Data
-public class UserRequestParam {
+public class Page {
 
 	private int page;
 	

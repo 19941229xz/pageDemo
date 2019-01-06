@@ -9,6 +9,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.common.base.BaseReqParam;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -45,8 +46,16 @@ public class PageHelperAspect {
         //获取连接点所在的类的对象(实例)
         Object target = proceedingJoinPoint.getTarget(); 
         
-        PageHelper.startPage(Integer.parseInt(args[0].toString()),Integer.parseInt(args[1].toString()));
-
+        //对象转换
+        BaseReqParam<Object> param=(BaseReqParam<Object>)args[0];
+        //分页
+        PageHelper.startPage(param.getPageParam().getPage(),param.getPageParam().getSize());
+        //排序
+        for (int i = 0; i < param.getSortParam().length; i++) {
+        	PageHelper.orderBy(param.getSortParam()[i]);
+		}
+        
+        
         log.info("方法[{}]开始执行...",signature.getName());
         Object object = proceedingJoinPoint.proceed();
         log.info("方法[{}]执行结束.",signature.getName());

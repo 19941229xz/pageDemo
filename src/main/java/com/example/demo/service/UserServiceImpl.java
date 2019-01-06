@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.common.base.BaseReqParam;
 import com.example.demo.dao.UserMapper;
 import com.example.demo.model.User;
 import com.github.pagehelper.PageHelper;
@@ -23,18 +24,34 @@ public class UserServiceImpl implements UserService {
 		return userList;
 	}
 
-	/**
-     * @param page 当前页
-     * @param pageSize 每页数量
-     * @return
-     */
-    public PageInfo<User> findUserList(int page,int pageSize){
-        //pageHelper帮助生成分页语句
-        //底层实现 采用改写语句
-        PageHelper.startPage(page,pageSize);
-        List<User> userList = userMapper.findUserList();
-        PageInfo<User> userListPageInfo = new PageInfo<>(userList);
-        return userListPageInfo;
-    }
+	@Override
+	public Object findUserList(int page, int size) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object findUserListWithPage(BaseReqParam<User> param) {
+		// TODO Auto-generated method stub
+				List<User> userList = userMapper.findUserList();
+				return userList;
+	}
+	
+	
+	
+
+//	/**
+//     * @param page 当前页
+//     * @param pageSize 每页数量
+//     * @return
+//     */
+//    public PageInfo<User> findUserList(int page,int pageSize){
+//        //pageHelper帮助生成分页语句
+//        //底层实现 采用改写语句
+//        PageHelper.startPage(page,pageSize);
+//        List<User> userList = userMapper.findUserList();
+//        PageInfo<User> userListPageInfo = new PageInfo<>(userList);
+//        return userListPageInfo;
+//    }
 
 }
