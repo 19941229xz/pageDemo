@@ -51,10 +51,11 @@ public class PageHelperAspect {
         //分页
         PageHelper.startPage(param.getPageParam().getPage(),param.getPageParam().getSize());
         //排序
-        for (int i = 0; i < param.getSortParam().length; i++) {
-        	PageHelper.orderBy(param.getSortParam()[i]);
-		}
-        
+        if(param.getSortParam()!=null&&param.getSortParam().length>0){
+        	for (int i = 0; i < param.getSortParam().length; i++) {
+            	PageHelper.orderBy(param.getSortParam()[i]);
+    		}
+        }
         
         log.info("方法[{}]开始执行...",signature.getName());
         Object object = proceedingJoinPoint.proceed();
