@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,13 +23,14 @@ public class UserController implements BaseController<User>{
     @PostMapping("/search")
     @Override
     public Object search(@RequestBody BaseReqParam<User> param){
-        return userService.findUserListWithPage( param);
+        return userService.searchWithPage( param);
     }
 
+    @PostMapping("/addOne")
 	@Override
-	public Object addOne(BaseReqParam<User> param) {
+	public Object addOne(@RequestBody @Valid BaseReqParam<User> param) {
 		// TODO Auto-generated method stub
-		return null;
+		return userService.addOne((User)param.getAddParam());
 	}
 
 	@Override
@@ -35,5 +38,14 @@ public class UserController implements BaseController<User>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	@PostMapping("/testaddOne")
+	public Object testaddOne(@RequestBody @Valid User user) {
+		// TODO Auto-generated method stub
+		return userService.addOne(user);
+	}
+	
+	
     
 }

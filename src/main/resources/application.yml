@@ -25,14 +25,18 @@ spring:
 logging:
   level:
      com.example.demo.dao : debug
+     com.example.demo.aop : debug
 pagehelper:
   helper-dialect: mysql
   reasonable: true
   support-methods-arguments: true
   params: 
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
 
 systemconfig:
   defaultPageSize: 20  
+  
 
   
   

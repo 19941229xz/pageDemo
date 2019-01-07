@@ -1,5 +1,7 @@
 package com.example.demo.common.base;
 
+import javax.validation.Valid;
+
 import com.example.demo.common.Page;
 
 import lombok.Data;
@@ -15,6 +17,7 @@ public class BaseReqParam<T> {
 	/**
 	 * 对象新增参数
 	 */
+	@Valid
 	private T addParam;
 	
 	/**
