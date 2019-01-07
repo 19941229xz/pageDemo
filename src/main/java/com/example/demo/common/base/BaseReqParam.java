@@ -7,9 +7,28 @@ import lombok.Data;
 @Data
 public class BaseReqParam<T> {
 
+	/**
+	 * 条件查询参数
+	 */
 	private T searchParam;
 	
+	/**
+	 * 对象新增参数
+	 */
+	private T addParam;
+	
+	/**
+	 * 分页参数
+	 */
 	private Page pageParam;
 	
+	/**
+	 * 排序参数
+	 */
 	private String[] sortParam;
+	
+	/**
+	 * 批量新增对象参数
+	 */
+	private T[] itemArray;
 }

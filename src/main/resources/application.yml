@@ -31,6 +31,9 @@ pagehelper:
   support-methods-arguments: true
   params: 
 
+systemconfig:
+  defaultPageSize: 20  
+
   
   
   

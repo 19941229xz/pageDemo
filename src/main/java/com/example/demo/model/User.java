@@ -5,7 +5,11 @@ import com.example.demo.common.base.BaseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-
+/**
+ * 
+ * @author xiongzh
+ * @comment 1，角色实体类 对应数据表 users
+ */
 @Data
 @EqualsAndHashCode(callSuper=false) //解决继承 BaseModel @Data注解报错的问题
 public class User extends BaseModel{
