@@ -18,7 +18,7 @@ public class BaseModel {
 	
 	protected Date deleteTime; // 删除时间
 	
-	protected Date deleteUserId; // 删除人的id
+	protected String deleteUserId; // 删除人的id
 	
 	protected Date updateLastTime; // 最后一次修改的时间
 
