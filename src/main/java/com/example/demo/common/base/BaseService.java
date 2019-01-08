@@ -15,4 +15,11 @@ public interface BaseService<T> {
 	 */
 	Object addOne(@Valid T addParam);
 	
+	T getOne(T searchParam);
+
+	Object delete(T deleteParam);
+	
+	Object update(T updateParam);
+	
+	
 }

@@ -34,17 +34,24 @@ public class UserController implements BaseController<User>{
 	}
 
 	@Override
-	public Object addSome(BaseReqParam<User> param) {
+	public Object getOne(BaseReqParam<User> param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object delete(BaseReqParam<User> param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object update(BaseReqParam<User> param) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	
-	@PostMapping("/testaddOne")
-	public Object testaddOne(@RequestBody @Valid User user) {
-		// TODO Auto-generated method stub
-		return userService.addOne(user);
-	}
 	
 	
     

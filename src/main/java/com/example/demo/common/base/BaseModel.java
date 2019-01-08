@@ -15,5 +15,11 @@ public class BaseModel {
 	protected Date createTime;
 	
 	protected int isDeleted; // 是否被删除  （0表示未删除，1表示已删除）
+	
+	protected Date deleteTime; // 删除时间
+	
+	protected Date deleteUserId; // 删除人的id
+	
+	protected Date updateLastTime; // 最后一次修改的时间
 
 }

@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Object searchWithPage(BaseReqParam<User> param) {
-		List<User> userList = userMapper.search();
+		List<User> userList = userMapper.search((User)param.getSearchParam());
 		return userList;
 	}
 
@@ -29,13 +29,26 @@ public class UserServiceImpl implements UserService {
 		return userMapper.addOne(addParam);
 	}
 
-
-	/*@Override
-	public Object findUserListWithPage(BaseReqParam<User> param) {
+	@Override
+	public User getOne(User searchParam) {
 		// TODO Auto-generated method stub
-				List<User> userList = userMapper.findUserList();
-				return userList;
-	}*/
+		return null;
+	}
+
+
+	@Override
+	public Object delete(User deleteParam) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object update(User updateParam) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	
 	
 	
