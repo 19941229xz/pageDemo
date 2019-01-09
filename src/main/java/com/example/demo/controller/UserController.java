@@ -19,6 +19,8 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
+import io.swagger.annotations.AuthorizationScope;
 
 @Api("UserController相关api")
 @RestController
@@ -32,10 +34,10 @@ public class UserController implements BaseController<User>{
 //    @ApiImplicitParams({
 //            @ApiImplicitParam(name = "id",value = "用户id",dataType = "String",paramType = "query",example = "1112")
 //    })
-    @ApiResponses({
-            @ApiResponse(code=400,message = "请求参数没有填好"),
-            @ApiResponse(code=404,message="请求路径没有找到")
-    })        
+//    @ApiResponses({
+//            @ApiResponse(code=400,message = "请求参数没有填好"),
+//            @ApiResponse(code=404,message="请求路径没有找到")
+//    })        
     @PostMapping("/search")
     @Override
     public Object search(@RequestBody BaseReqParam<User> param){
@@ -49,22 +51,28 @@ public class UserController implements BaseController<User>{
 		return userService.addOne((User)param.getAddParam());
 	}
 
+    @ApiOperation(value = "根据id获取user",notes = "只需要在addParam中添加id")
+    @PostMapping("/getOne")
 	@Override
-	public Object getOne(BaseReqParam<User> param) {
+	public Object getOne(@RequestBody BaseReqParam<User> param) {
 		// TODO Auto-generated method stub
-		return null;
+		return userService.getOne((User)param.getSearchParam());
 	}
 
+    @ApiOperation(value = "条件逻辑删除user",notes = "只需要在deleteParam中添加 相关筛选条件")
+    @PostMapping("/delete")
 	@Override
-	public Object delete(BaseReqParam<User> param) {
+	public Object delete(@RequestBody BaseReqParam<User> param) {
 		// TODO Auto-generated method stub
-		return null;
+		return userService.delete((User)param.getDeleteParam());
 	}
 
+    @ApiOperation(value = "条件修改删除user",notes = "只需要在deleteParam中添加 相关筛选条件")
+    @PostMapping("/update")
 	@Override
-	public Object update(BaseReqParam<User> param) {
+	public Object update(@RequestBody BaseReqParam<User> param) {
 		// TODO Auto-generated method stub
-		return null;
+		return userService.update((User)param.getUpdateParam());
 	}
 	
 	

@@ -42,13 +42,13 @@ public class BaseReqParam<T> {
 	/**
 	 * 分页参数
 	 */
-	@ApiModelProperty(value="对象新增参数",name="addParam") 	
+	@ApiModelProperty(value="分页参数",name="addParam") 	
 	private Page pageParam;
 	
 	/**
 	 * 排序参数
 	 */
-	@ApiModelProperty(value="排序参数",name="sortParam") 
+	@ApiModelProperty(value="排序参数 例如:['age desc'] age 必须是数据库有的字段",name="sortParam") 
 	private String[] sortParam;
 	
 	/**

@@ -32,11 +32,12 @@ public class SwaggerConfig {
                 //页面标题
                     .title("springBoot测试使用Swagger2构建RESTful API")
                 //创建人
-                    .contact(new Contact("chendai","http://www.baidu.com",""))
+                    .contact(new Contact("xiongzh","http://www.baidu.com",""))
                  //版本号
                     .version("1.0")
                 //描述
                     .description("API 描述")
+                    .termsOfServiceUrl("xiongzh")
                     .build();
     }
 }

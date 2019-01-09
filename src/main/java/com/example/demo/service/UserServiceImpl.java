@@ -32,20 +32,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getOne(User searchParam) {
 		// TODO Auto-generated method stub
-		return null;
+		return userMapper.getOne(searchParam);
 	}
 
 
 	@Override
 	public Object delete(User deleteParam) {
 		// TODO Auto-generated method stub
-		return null;
+		return userMapper.delete(deleteParam);
 	}
 
 	@Override
 	public Object update(User updateParam) {
 		// TODO Auto-generated method stub
-		return null;
+		return userMapper.update(updateParam);
 	}
 
 

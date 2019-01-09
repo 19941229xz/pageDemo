@@ -1,5 +1,7 @@
 package com.example.demo.common.base;
 
+import io.swagger.annotations.ApiOperation;
+
 public interface BaseController<T> {
 
 	/**
@@ -25,5 +27,6 @@ public interface BaseController<T> {
 	/**
 	 * 删除的方法  aop 实现统一对id的非空校验
 	 */
+//	@ApiOperation(value = "条件修改user",notes = "只需要在updateParam中添加 相关筛选条件")
 	Object update(BaseReqParam<T> param);
 }
