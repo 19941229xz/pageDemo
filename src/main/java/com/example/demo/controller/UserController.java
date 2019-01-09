@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.common.annotation.IdNotEmpty;
+import com.example.demo.common.annotation.IsDeletedSetNull;
 import com.example.demo.common.base.BaseController;
 import com.example.demo.common.base.BaseReqParam;
 import com.example.demo.model.User;
@@ -53,6 +55,7 @@ public class UserController implements BaseController<User>{
 
     @ApiOperation(value = "根据id获取user",notes = "只需要在addParam中添加id")
     @PostMapping("/getOne")
+    @IdNotEmpty
 	@Override
 	public Object getOne(@RequestBody BaseReqParam<User> param) {
 		// TODO Auto-generated method stub
@@ -67,6 +70,7 @@ public class UserController implements BaseController<User>{
 		return userService.delete((User)param.getDeleteParam());
 	}
 
+    @IsDeletedSetNull
     @ApiOperation(value = "条件修改删除user",notes = "只需要在deleteParam中添加 相关筛选条件")
     @PostMapping("/update")
 	@Override
