@@ -33,47 +33,23 @@ public class ResponseWrapperAspect {
     @Pointcut("execution(public * com.example.demo.controller.*.**(..))")
     public void serviceFindFunction(){}
     /**
-     * 使用around方法 在执行查询方法前执行PageHelper.startWith
-     * 在执行查询方法后 将结果封装到PageInfo中
-     * @param proceedingJoinPoint
-     * @return
-     * @throws Throwable
+     * 
      */
     @Around("serviceFindFunction()")
     public Object serviceImplAop(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        log.debug("进入ResponseWrapperAspect.java AOP");
-
+        log.debug("进入ResponseWrapperAspect AOP");
         //获取连接点方法运行时的入参列表
         Object[] args = proceedingJoinPoint.getArgs();
-
         //获取连接点的方法签名对象
         Signature signature = proceedingJoinPoint.getSignature();
-        
         //获取连接点所在的类的对象(实例)
         Object target = proceedingJoinPoint.getTarget(); 
-        
         //对象转换
         BaseReqParam<Object> param=(BaseReqParam<Object>)args[0];
-//        //分页
-//        pageOpration(param);
-//        //排序
-//        sortOpration(param);
         
-        log.debug("接口{}-方法[{}]开始执行...请求参数：{}"
-        		,target.getClass().getName()
-        		,signature.getName()
-        		,param.toString()
-        		);
         Object object = proceedingJoinPoint.proceed();
-        log.debug("接口{}-方法[{}]执行结束...返回参数：{}"
-        		,target.getClass().getName()
-        		,signature.getName()
-        		,object.toString()
-        		);
 
         if(!(object instanceof ResponseWrapperAspect)) {
-//            List objList = (List) object;
-//            PageInfo pageInfo = new PageInfo<>(objList);
             return HttpResponse.success(object);
         }
         return object;
