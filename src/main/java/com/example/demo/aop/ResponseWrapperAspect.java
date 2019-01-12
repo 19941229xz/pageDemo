@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.common.HttpResponse;
 import com.example.demo.common.SystemConfig;
 import com.example.demo.common.base.BaseReqParam;
 import com.github.pagehelper.PageInfo;
@@ -70,10 +71,10 @@ public class ResponseWrapperAspect {
         		,object.toString()
         		);
 
-        if(object instanceof List) {
-            List objList = (List) object;
-            PageInfo pageInfo = new PageInfo<>(objList);
-            return pageInfo;
+        if(!(object instanceof ResponseWrapperAspect)) {
+//            List objList = (List) object;
+//            PageInfo pageInfo = new PageInfo<>(objList);
+            return HttpResponse.success(object);
         }
         return object;
 

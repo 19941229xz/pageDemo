@@ -14,6 +14,24 @@ public class HttpException extends Exception{
 		this.code=httpCode.getCode();
 	}
 	
+	
+	public HttpException() {
+		super();
+	}
+
+	
+	public HttpException setMsg(String msg) {
+		this.msg = msg;
+		return this;
+	}
+
+
+	public HttpException setCode(HttpCode httpCode) {
+		this.code = httpCode.getCode();
+		return this;
+	}
+
+
 	public int getCode(){
 		return this.code;
 	}

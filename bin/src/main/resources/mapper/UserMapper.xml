@@ -1,27 +1,57 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.example.demo.dao.UserMapper">
-
-<select id="search" parameterType="com.example.demo.model.User" 
-resultType="com.example.demo.model.User">
-
-select * from users
-
-</select>
-
-<!-- insert 和 apdate 方法不需要填写返回类型 默认是 int -->
-<insert id="addOne" parameterType="com.example.demo.model.User">
-
-insert into users values(#{id},#{username},#{password},#{createTime},#{isDeleted}
-,#{realName},#{phone},#{roleId})
-
-</insert>
-
-
-	<!-- <insert id="insert" parameterType="java.util.Map">
-		insert into users (id,userName,companyId,roleId)
-		values(#{usrID},#{usrName},#{companyId},#{roleId})
-	</insert> -->
-
-
+	<resultMap id="queryResultMap" type="com.example.demo.model.User">
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<!-- 账号 -->
+		<result column="username" property="username" jdbcType="VARCHAR"/>
+		<result column="password" property="password" jdbcType="VARCHAR"/>
+		<result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="isDeleted" property="isDeleted" jdbcType="INTEGER"/>
+		<!-- 真实姓名 -->
+		<result column="realName" property="realName" jdbcType="VARCHAR"/>
+		<result column="phone" property="phone" jdbcType="VARCHAR"/>
+		<result column="roleId" property="roleId" jdbcType="VARCHAR"/>
+	</resultMap>
+	<!-- 根据条件查询记录 -->
+	<select id="search" parameterType="com.example.demo.model.User" resultType="com.example.demo.model.User">SELECT * FROM user t 
+		<where> 
+			<if test="username != null">username=#{username} and</if>  
+			<if test="password != null">password=#{password} and</if>  
+			<if test="createTime != null">createTime=#{createTime} and</if>  
+			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if>  
+			<if test="realName != null">realName=#{realName} and</if>  
+			<if test="phone != null">phone=#{phone} and</if>  
+			<if test="roleId != null">roleId=#{roleId} and</if> 1=1
+		</where> 
+	</select>
+	<!-- 保存,保存全部字段 -->
+	<insert id="addOne" parameterType="com.example.demo.model.User">INSERT INTO user ( id , username , password , createTime , isDeleted , realName , phone , roleId ) VALUES ( #{id} , #{username} , #{password} , #{createTime} , #{isDeleted} , #{realName} , #{phone} , #{roleId} )</insert>
+	<!-- 更新不为NULL的字段 -->
+	<update id="update" parameterType="com.example.demo.model.User">UPDATE user 
+		<set> 
+			<if test="username != null">username=#{username},</if>  
+			<if test="password != null">password=#{password},</if>  
+			<if test="createTime != null">createTime=#{createTime},</if>  
+			<if test="isDeleted != null">isDeleted=#{isDeleted},</if>  
+			<if test="realName != null">realName=#{realName},</if>  
+			<if test="phone != null">phone=#{phone},</if>  
+			<if test="roleId != null">roleId=#{roleId},</if> 
+		</set> WHERE id = #{id}
+	</update>
+	<!-- 根据主键获取单条记录 -->
+	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.User">SELECT * FROM user t WHERE id = #{id}</select>
+	<!-- 根据主键逻辑删除记录 -->
+	<update id="delete" parameterType="com.example.demo.model.User">update user set isDeleted = 1 
+		<trim prefix="WHERE" prefixOverrides="AND |OR"> 
+			<if test="username != null">and username=#{username}</if>  
+			<if test="password != null">and password=#{password}</if>  
+			<if test="createTime != null">and createTime=#{createTime}</if>  
+			<if test="isDeleted != null">and isDeleted=#{isDeleted}</if>  
+			<if test="realName != null">and realName=#{realName}</if>  
+			<if test="phone != null">and phone=#{phone}</if>  
+			<if test="roleId != null">and roleId=#{roleId}</if> 
+		</trim> 
+	</update>
 </mapper>

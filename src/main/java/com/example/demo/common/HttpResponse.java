@@ -22,7 +22,7 @@ public class HttpResponse {
 	public static HttpResponse unknowError(){
 		HttpResponse rsp=new HttpResponse();
 		rsp.setCode(500);
-		rsp.setMsg("未知异常");
+		rsp.setMsg("服务异常");
 		rsp.setContent(null);
 		return rsp;
 	}

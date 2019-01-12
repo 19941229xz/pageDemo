@@ -1,11 +1,14 @@
 package com.example.demo.common;
 
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import static com.example.demo.common.HttpResponse.*;
 
 import lombok.extern.slf4j.Slf4j;
 
+@ControllerAdvice
 @Slf4j
 public class ExceptionHandle {
 
@@ -17,8 +20,14 @@ public class ExceptionHandle {
         	log.error("【自定义服务异常】{}", e);
         	HttpException httpException = (HttpException) e;
         	return error(httpException);
+        }else if(e instanceof MethodArgumentNotValidException){
+        	MethodArgumentNotValidException exception = (MethodArgumentNotValidException) e;
+        	String msg=exception.getBindingResult().getFieldError().getDefaultMessage();
+        	log.error("【参数错误】{}", e.getMessage());
+        	return error(new HttpException().setCode(HttpCode.BAD_PARAM)
+        			.setMsg(msg));
         }else {
-            log.error("【系统未知异常】{}", e);
+            log.error("【系统未知异常】{}", e.getMessage());
             return unknowError();
         }
     }
