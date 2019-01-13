@@ -2,8 +2,9 @@ package com.example.demo.common;
 
 public enum HttpCode {
 	
-	SUCCESS(200,"ok")
-	,BAD_PARAM(400,"参数错误")
+	SUCCESS(10200,"ok")
+	,BAD_PARAM(10400,"参数错误")
+	,ITEM_NOT_FOUND(10404,"数据找不到")
 	;
 
 	private String msg;

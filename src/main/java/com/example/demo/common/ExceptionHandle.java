@@ -28,6 +28,7 @@ public class ExceptionHandle {
         			.setMsg(msg));
         }else {
             log.error("【系统未知异常】{}", e.getMessage());
+            e.printStackTrace();
             return unknowError();
         }
     }
