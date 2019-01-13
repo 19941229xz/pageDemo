@@ -15,10 +15,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
+import com.example.demo.common.HttpCode;
+import com.example.demo.common.HttpException;
+import com.example.demo.common.HttpResponse;
 import com.example.demo.common.SystemConfig;
 import com.example.demo.common.annotation.IdNotEmpty;
 import com.example.demo.common.annotation.IsDeletedSetNull;
 import com.example.demo.common.base.BaseReqParam;
+import com.fasterxml.jackson.databind.ser.std.StdArraySerializers.IntArraySerializer;
+
 import static com.example.demo.common.util.AopUtil.*;
 
 import static com.example.demo.common.util.UUIDUtil.*;
@@ -80,7 +85,17 @@ public class ControllerFindAspect {
         
         Object object = proceedingJoinPoint.proceed();
         
-       
+        // TODO this code need fix to more simple
+       if(object == null) {
+    	   throw new HttpException(HttpCode.ITEM_NOT_FOUND);
+       }else {
+    	   if(object instanceof HttpResponse) {
+    		   HttpResponse rsp= (HttpResponse)object ;
+    		   if(rsp.getContent()==null) {
+    			   throw new HttpException(HttpCode.ITEM_NOT_FOUND);
+    		   }
+    	   }
+       }
         
         return object;
     }

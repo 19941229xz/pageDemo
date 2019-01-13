@@ -2,71 +2,96 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.dao.UserMapper">
-	<resultMap id="queryResultMap" type="com.example.demo.model.User">
+	<resultMap id="queryResultMap"
+		type="com.example.demo.model.User">
 		<!-- 主键 -->
-		<result column="id" property="id" jdbcType="VARCHAR"/>
-		<!-- 账号 -->
-		<result column="username" property="username" jdbcType="VARCHAR"/>
-		<!-- 密码 -->
-		<result column="password" property="password" jdbcType="VARCHAR"/>
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<!-- 账号NotEmpty -->
+		<result column="username" property="username"
+			jdbcType="VARCHAR" />
+		<!-- 密码NotEmpty -->
+		<result column="password" property="password"
+			jdbcType="VARCHAR" />
 		<!-- 创建时间 -->
-		<result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="createTime" property="createTime"
+			jdbcType="TIMESTAMP" />
 		<!-- 是否被删除（0表示为删除，1表示已删除） -->
-		<result column="isDeleted" property="isDeleted" jdbcType="INTEGER"/>
-		<!-- 真实姓名 -->
-		<result column="realName" property="realName" jdbcType="VARCHAR"/>
-		<!-- 电话 -->
-		<result column="phone" property="phone" jdbcType="VARCHAR"/>
-		<!-- 角色id -->
-		<result column="roleId" property="roleId" jdbcType="VARCHAR"/>
+		<result column="isDeleted" property="isDeleted"
+			jdbcType="INTEGER" />
+		<!-- 真实姓名NotEmpty -->
+		<result column="realName" property="realName"
+			jdbcType="VARCHAR" />
+		<!-- 电话NotEmpty -->
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<!-- 角色idNotEmpty -->
+		<result column="roleId" property="roleId" jdbcType="VARCHAR" />
 		<!-- 删除时间 -->
-		<result column="deleteTime" property="deleteTime" jdbcType="TIMESTAMP"/>
+		<result column="deleteTime" property="deleteTime"
+			jdbcType="TIMESTAMP" />
 		<!-- 删除人id -->
-		<result column="deleteUserId" property="deleteUserId" jdbcType="VARCHAR"/>
+		<result column="deleteUserId" property="deleteUserId"
+			jdbcType="VARCHAR" />
 		<!-- 最后一次更新时间 -->
-		<result column="updateLastTime" property="updateLastTime" jdbcType="TIMESTAMP"/>
+		<result column="updateLastTime" property="updateLastTime"
+			jdbcType="TIMESTAMP" />
 	</resultMap>
 	<!-- 条件查询 -->
-	<select id="search" parameterType="com.example.demo.model.User" resultType="com.example.demo.model.User">SELECT * FROM user t 
-		<where> 
-			<if test="id != null">id=#{id} and</if>  
-			<if test="username != null">username=#{username} and</if>  
-			<if test="password != null">password=#{password} and</if>  
-			<if test="createTime != null">createTime=#{createTime} and</if>  
-			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if>  
-			<if test="realName != null">realName=#{realName} and</if>  
-			<if test="phone != null">phone=#{phone} and</if>  
-			<if test="roleId != null">roleId=#{roleId} and</if>  
-			<if test="deleteTime != null">deleteTime=#{deleteTime} and</if>  
-			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
-			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if> 1=1
-		</where> 
+	<select id="search" parameterType="com.example.demo.model.User"
+		resultType="com.example.demo.model.User">
+		SELECT * FROM user t
+		<where>
+			<if test="id != null">id=#{id} and</if>
+			<if test="username != null">username=#{username} and</if>
+			<if test="password != null">password=#{password} and</if>
+			<if test="createTime != null">createTime=#{createTime} and</if>
+			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if>
+			<if test="realName != null">realName=#{realName} and</if>
+			<if test="phone != null">phone=#{phone} and</if>
+			<if test="roleId != null">roleId=#{roleId} and</if>
+			<if test="deleteTime != null">deleteTime=#{deleteTime} and</if>
+			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>
+			1=1
+		</where>
 	</select>
 	<!-- 添加一个对象 -->
-	<insert id="addOne" parameterType="com.example.demo.model.User">INSERT INTO user ( id , username , password , createTime , isDeleted , realName , phone , roleId , deleteTime , deleteUserId , updateLastTime ) VALUES ( #{id} , #{username} , #{password} , #{createTime} , #{isDeleted} , #{realName} , #{phone} , #{roleId} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} )</insert>
+	<insert id="addOne" parameterType="com.example.demo.model.User">INSERT INTO user ( id ,
+		username , password , createTime , isDeleted , realName , phone ,
+		roleId , deleteTime , deleteUserId , updateLastTime ) VALUES ( #{id} ,
+		#{username} , #{password} , #{createTime} , #{isDeleted} , #{realName}
+		, #{phone} , #{roleId} , #{deleteTime} , #{deleteUserId} ,
+		#{updateLastTime} )</insert>
 	<!-- 修改不为null的字段 -->
-	<update id="update" parameterType="com.example.demo.model.User">UPDATE user 
-		<set> 
-			<if test="id != null">id=#{id},</if>  
-			<if test="username != null">username=#{username},</if>  
-			<if test="password != null">password=#{password},</if>  
-			<if test="createTime != null">createTime=#{createTime},</if>  
-			<if test="isDeleted != null">isDeleted=#{isDeleted},</if>  
-			<if test="realName != null">realName=#{realName},</if>  
-			<if test="phone != null">phone=#{phone},</if>  
-			<if test="roleId != null">roleId=#{roleId},</if>  
-			<if test="deleteTime != null">deleteTime=#{deleteTime},</if>  
-			<if test="deleteUserId != null">deleteUserId=#{deleteUserId},</if>  
-			<if test="updateLastTime != null">updateLastTime=#{updateLastTime},</if> 
-		</set> WHERE id = #{id}
+	<update id="update" parameterType="com.example.demo.model.User">
+		UPDATE user
+		<set>
+			<if test="id != null">id=#{id},</if>
+			<if test="username != null">username=#{username},</if>
+			<if test="password != null">password=#{password},</if>
+			<if test="createTime != null">createTime=#{createTime},</if>
+			<if test="isDeleted != null">isDeleted=#{isDeleted},</if>
+			<if test="realName != null">realName=#{realName},</if>
+			<if test="phone != null">phone=#{phone},</if>
+			<if test="roleId != null">roleId=#{roleId},</if>
+			<if test="deleteTime != null">deleteTime=#{deleteTime},</if>
+			<if test="deleteUserId != null">deleteUserId=#{deleteUserId},</if>
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime},</if>
+		</set>
+		WHERE id = #{id}
 	</update>
 	<!-- 根据id获取一个对象 -->
-	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.User">SELECT * FROM user t WHERE id = #{id}</select>
+	<select id="getOne" resultMap="queryResultMap"
+		parameterType="com.example.demo.model.User">
+		SELECT * FROM user t WHERE id = #{id}
+		<if test="isDeleted != null">and isDeleted=#{isDeleted}</if>
+	</select>
 	<!-- 根据条件 逻辑删除对象 -->
-	<update id="delete" parameterType="com.example.demo.model.User">update user set isDeleted = 1 
-		<trim> 
-			<if test="deleteTime != null">, deleteTime=#{deleteTime}</if>  
-			<if test="deleteUserId != null">, deleteUserId=#{deleteUserId}</if> 
-		</trim> where id=#{id}
+	<update id="delete" parameterType="com.example.demo.model.User">
+		update user set isDeleted = 1
+		<trim>
+			<if test="deleteTime != null">, deleteTime=#{deleteTime}</if>
+			<if test="deleteUserId != null">, deleteUserId=#{deleteUserId}</if>
+		</trim>
+		where id=#{id}
 	</update>
 </mapper>

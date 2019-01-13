@@ -49,7 +49,7 @@ public class ResponseWrapperAspect {
         
         Object object = proceedingJoinPoint.proceed();
 
-        if(!(object instanceof ResponseWrapperAspect)) {
+        if(!(object instanceof HttpResponse)) {
             return HttpResponse.success(object);
         }
         return object;

@@ -1,6 +1,6 @@
 package com.example.demo.common;
 
-public class HttpException extends Exception{
+public class HttpException extends RuntimeException{
 
 	/**
 	 * 

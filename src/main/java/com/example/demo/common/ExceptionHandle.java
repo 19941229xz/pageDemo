@@ -17,13 +17,14 @@ public class ExceptionHandle {
     @ResponseBody
     public HttpResponse handle(Exception e) {
         if (e instanceof HttpException) {   //判断异常是否是我们定义的异常
-        	log.error("【自定义服务异常】{}", e);
+        	log.info("【自定义服务异常】 错误码：{} 信息：{}", 
+        			((HttpException) e).getCode(),((HttpException) e).getMsg());
         	HttpException httpException = (HttpException) e;
         	return error(httpException);
         }else if(e instanceof MethodArgumentNotValidException){
         	MethodArgumentNotValidException exception = (MethodArgumentNotValidException) e;
         	String msg=exception.getBindingResult().getFieldError().getDefaultMessage();
-        	log.error("【参数错误】{}", e.getMessage());
+        	log.info("【参数错误】{}", e.getMessage());
         	return error(new HttpException().setCode(HttpCode.BAD_PARAM)
         			.setMsg(msg));
         }else {
