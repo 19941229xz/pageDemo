@@ -1,6 +1,5 @@
 package com.example.demo.common.base;
 
-import io.swagger.annotations.ApiOperation;
 
 public interface BaseController<T> {
 

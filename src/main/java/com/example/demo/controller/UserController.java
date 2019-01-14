@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiOperation;
 @Api("UserController相关api")
 @RestController
 @RequestMapping("user")
-public class UserController implements BaseController<User>{
+public class UserController implements BaseController<User> {
 
 	@Autowired
     private UserService userService;
