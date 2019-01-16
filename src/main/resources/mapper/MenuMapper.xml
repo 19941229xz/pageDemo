@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.demo.dao.RoleMapper">
-	<resultMap id="queryResultMap" type="com.example.demo.model.Role">
+<mapper namespace="com.example.demo.dao.MenuMapper">
+	<resultMap id="queryResultMap" type="com.example.demo.model.Menu">
 		<!-- 主键 -->
 		<result column="id" property="id" jdbcType="VARCHAR"/>
-		<!-- 角色名称 -->
-		<result column="roleName" property="roleName" jdbcType="VARCHAR"/>
-		<!-- 角色英文标志 -->
-		<result column="roleSign" property="roleSign" jdbcType="VARCHAR"/>
+		<!-- 菜单名称 -->
+		<result column="menuName" property="menuName" jdbcType="VARCHAR"/>
+		<!-- 菜单的地址或路由 -->
+		<result column="url" property="url" jdbcType="VARCHAR"/>
 		<!-- 删除时间 -->
 		<result column="deleteTime" property="deleteTime" jdbcType="TIMESTAMP"/>
 		<!-- 删除人id -->
@@ -21,11 +21,11 @@
 		<result column="isDeleted" property="isDeleted" jdbcType="INTEGER"/>
 	</resultMap>
 	<!-- 条件查询 -->
-	<select id="search" parameterType="com.example.demo.model.Role" resultType="com.example.demo.model.Role">SELECT * FROM Role t 
+	<select id="search" parameterType="com.example.demo.model.Menu" resultType="com.example.demo.model.Menu">SELECT * FROM Menu t 
 		<where> 
 			<if test="id != null">id=#{id} and</if>  
-			<if test="roleName != null">roleName=#{roleName} and</if>  
-			<if test="roleSign != null">roleSign=#{roleSign} and</if>  
+			<if test="menuName != null">menuName=#{menuName} and</if>  
+			<if test="url != null">url=#{url} and</if>  
 			<if test="deleteTime != null">deleteTime=#{deleteTime} and</if>  
 			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
 			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>  
@@ -34,13 +34,13 @@
 		</where> 
 	</select>
 	<!-- 添加一个对象 -->
-	<insert id="addOne" parameterType="com.example.demo.model.Role">INSERT INTO Role ( id , roleName , roleSign , deleteTime , deleteUserId , updateLastTime , createTime , isDeleted ) VALUES ( #{id} , #{roleName} , #{roleSign} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} , #{createTime} , #{isDeleted} )</insert>
+	<insert id="addOne" parameterType="com.example.demo.model.Menu">INSERT INTO Menu ( id , menuName , url , deleteTime , deleteUserId , updateLastTime , createTime , isDeleted ) VALUES ( #{id} , #{menuName} , #{url} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} , #{createTime} , #{isDeleted} )</insert>
 	<!-- 修改不为null的字段 -->
-	<update id="update" parameterType="com.example.demo.model.Role">UPDATE Role 
+	<update id="update" parameterType="com.example.demo.model.Menu">UPDATE Menu 
 		<set> 
 			<if test="id != null">id=#{id},</if>  
-			<if test="roleName != null">roleName=#{roleName},</if>  
-			<if test="roleSign != null">roleSign=#{roleSign},</if>  
+			<if test="menuName != null">menuName=#{menuName},</if>  
+			<if test="url != null">url=#{url},</if>  
 			<if test="deleteTime != null">deleteTime=#{deleteTime},</if>  
 			<if test="deleteUserId != null">deleteUserId=#{deleteUserId},</if>  
 			<if test="updateLastTime != null">updateLastTime=#{updateLastTime},</if>  
@@ -49,11 +49,11 @@
 		</set> WHERE id = #{id}
 	</update>
 	<!-- 根据id获取一个对象 -->
-	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.Role">SELECT * FROM Role t WHERE id = #{id} 
+	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.Menu">SELECT * FROM Menu t WHERE id = #{id} 
 		<if test="isDeleted != null">and isDeleted=#{isDeleted}</if> 
 	</select>
 	<!-- 根据条件 逻辑删除对象 -->
-	<update id="delete" parameterType="com.example.demo.model.Role">update Role set isDeleted = 1 
+	<update id="delete" parameterType="com.example.demo.model.Menu">update Menu set isDeleted = 1 
 		<trim> 
 			<if test="deleteTime != null">, deleteTime=#{deleteTime}</if>  
 			<if test="deleteUserId != null">, deleteUserId=#{deleteUserId}</if> 

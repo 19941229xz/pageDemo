@@ -3,11 +3,11 @@ package com.example.demo.dao;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.common.base.BaseMapper;
-import com.example.demo.model.Role;
+import com.example.demo.model.Menu;
 
 
 @Mapper
-public interface RoleMapper extends BaseMapper<Role>{
+public interface MenuMapper extends BaseMapper<Menu>{
 
 	
 	

@@ -10,25 +10,25 @@ import lombok.Data;
 /**
  * 
  * @author xiongzh
- * @comment 角色 对应数据表 Role
+ * @comment 菜单 对应数据表 Menu
  */
-@ApiModel(value="Role",description="角色")
+@ApiModel(value="Menu",description="菜单")
 @Data
-public class Role {
+public class Menu {
 	
         
     @ApiModelProperty(value="主键",name="id")
         private String id; // 主键
     	
         
-    @ApiModelProperty(value="角色名称",name="roleName")
-    @NotEmpty(message="角色名称不能为空")
-	    private String roleName; // 角色名称
+    @ApiModelProperty(value="菜单名称",name="menuName")
+    @NotEmpty(message="菜单名称不能为空")
+	    private String menuName; // 菜单名称
     	
         
-    @ApiModelProperty(value="角色英文标志",name="roleSign")
-    @NotEmpty(message="角色英文标志不能为空")
-	    private String roleSign; // 角色英文标志
+    @ApiModelProperty(value="菜单的地址或路由",name="url")
+    @NotEmpty(message="菜单的地址或路由不能为空")
+	    private String url; // 菜单的地址或路由
     	
         
     @ApiModelProperty(value="删除时间",name="deleteTime",hidden=true)

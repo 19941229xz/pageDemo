@@ -9,6 +9,9 @@ public class AopUtil {
 
 	
 	public static void setFieldValue(Object obj,String key,Object value) throws IllegalArgumentException, IllegalAccessException{
+		if(obj==null) {
+			return ;
+		}
     	Field[] fields = obj.getClass().getDeclaredFields();
         for (int j=0;j<fields.length;j++){//遍历
                 //得到属性

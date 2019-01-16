@@ -20,12 +20,12 @@ import io.swagger.annotations.ApiOperation;
 @Api("UserController相关api")
 @RestController
 @RequestMapping("user")
-public class UserController implements BaseController<User> {
+public class UserController implements BaseController<User>{
 
 	@Autowired
     private UserService userService;
 
-	@ApiOperation(value = "查询用户的信息",notes = "")
+	@ApiOperation(value = "查询用户的信息",notes = "在searchParam中添加{table.comment}的各种属性作为查询条件")
     @PostMapping("/search")
     @Override
     public Object search(@RequestBody BaseReqParam<User> param){

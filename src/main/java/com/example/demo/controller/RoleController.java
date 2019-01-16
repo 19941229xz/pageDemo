@@ -25,7 +25,7 @@ public class RoleController implements BaseController<Role>{
 	@Autowired
     private RoleService roleService;
 
-	@ApiOperation(value = "查询角色的信息",notes = "")
+	@ApiOperation(value = "查询角色的信息",notes = "在searchParam中添加{table.comment}的各种属性作为查询条件")
     @PostMapping("/search")
     @Override
     public Object search(@RequestBody BaseReqParam<Role> param){

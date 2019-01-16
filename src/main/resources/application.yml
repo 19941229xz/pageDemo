@@ -7,7 +7,7 @@ spring:
     username: root
     password: 19941229xz@
     druid:
-      filters: stat,wall,log4j,config
+      filters: stat,wall,slf4j,config
       max-active: 100
       initial-size: 1
       max-wait: 60000
