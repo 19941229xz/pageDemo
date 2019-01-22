@@ -21,16 +21,16 @@ public class HttpResponse {
 	
 	public static HttpResponse unknowError(){
 		HttpResponse rsp=new HttpResponse();
-		rsp.setCode(500);
-		rsp.setMsg("服务异常");
+		rsp.setCode(HttpCode.UNKNOW_ERROR.getCode());
+		rsp.setMsg(HttpCode.UNKNOW_ERROR.getMsg());
 		rsp.setContent(null);
 		return rsp;
 	}
 	
 	public static HttpResponse success(Object content){
 		HttpResponse rsp=new HttpResponse();
-		rsp.setCode(200);
-		rsp.setMsg("ok");
+		rsp.setCode(HttpCode.SUCCESS.getCode());
+		rsp.setMsg(HttpCode.SUCCESS.getMsg());
 		rsp.setContent(content);
 		return rsp;
 	}

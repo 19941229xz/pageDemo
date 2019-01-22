@@ -25,7 +25,7 @@ public class MenuController implements BaseController<Menu>{
 	@Autowired
     private MenuService menuService;
 
-	@ApiOperation(value = "查询菜单的信息",notes = "在searchParam中添加{table.comment}的各种属性作为查询条件")
+	@ApiOperation(value = "查询菜单的信息",notes = "在searchParam中添加菜单的各种属性作为查询条件")
     @PostMapping("/search")
     @Override
     public Object search(@RequestBody BaseReqParam<Menu> param){

@@ -10,9 +10,9 @@ import lombok.Data;
 /**
  * 
  * @author xiongzh
- * @comment 菜单 对应数据表 Menu
+ * @comment 菜单 对应数据表 menu
  */
-@ApiModel(value="Menu",description="菜单")
+@ApiModel(value="menu",description="菜单")
 @Data
 public class Menu {
 	

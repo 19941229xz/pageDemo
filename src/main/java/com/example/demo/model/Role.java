@@ -10,9 +10,9 @@ import lombok.Data;
 /**
  * 
  * @author xiongzh
- * @comment 角色 对应数据表 Role
+ * @comment 角色 对应数据表 role
  */
-@ApiModel(value="Role",description="角色")
+@ApiModel(value="role",description="角色")
 @Data
 public class Role {
 	

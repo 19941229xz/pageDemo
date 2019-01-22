@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.EmailMapper">
+	<resultMap id="queryResultMap" type="com.example.demo.model.Email">
+		<!-- 主键 -->
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<!-- 邮箱地址 -->
+		<result column="emailAddress" property="emailAddress" jdbcType="VARCHAR"/>
+		<!-- 邮箱密码 -->
+		<result column="password" property="password" jdbcType="VARCHAR"/>
+		<!-- 邮箱描述 -->
+		<result column="commet" property="commet" jdbcType="VARCHAR"/>
+	</resultMap>
+	<!-- 条件查询 -->
+	<select id="search" parameterType="com.example.demo.model.Email" resultType="com.example.demo.model.Email">SELECT * FROM Email t 
+		<trim prefix="where " suffixOverrides="and"> 
+			<if test="id != null">id=#{id} and</if>  
+			<if test="emailAddress != null">emailAddress=#{emailAddress} and</if>  
+			<if test="password != null">password=#{password} and</if>  
+			<if test="commet != null">commet=#{commet} and</if> 
+		</trim> 
+	</select>
+	<!-- 添加一个对象 -->
+	<insert id="addOne" parameterType="com.example.demo.model.Email">INSERT INTO Email ( id , emailAddress , password , commet ) VALUES ( #{id} , #{emailAddress} , #{password} , #{commet} )</insert>
+	<!-- 修改不为null的字段 -->
+	<update id="update" parameterType="com.example.demo.model.Email">UPDATE Email 
+		<set> 
+			<if test="id != null">id=#{id},</if>  
+			<if test="emailAddress != null">emailAddress=#{emailAddress},</if>  
+			<if test="password != null">password=#{password},</if>  
+			<if test="commet != null">commet=#{commet},</if> 
+		</set> WHERE id = #{id}
+	</update>
+	<!-- 根据id获取一个对象 -->
+	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.Email">SELECT * FROM Email t WHERE id = #{id} 
+		<if test="isDeleted != null">and isDeleted=#{isDeleted}</if> 
+	</select>
+	<!-- 根据条件 逻辑删除对象 -->
+	<update id="delete" parameterType="com.example.demo.model.Email">update Email set isDeleted = 1 
+		<trim> 
+			<if test="deleteTime != null">, deleteTime=#{deleteTime}</if>  
+			<if test="deleteUserId != null">, deleteUserId=#{deleteUserId}</if> 
+		</trim> where id=#{id}
+	</update>
+</mapper>

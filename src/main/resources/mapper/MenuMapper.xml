@@ -21,8 +21,8 @@
 		<result column="isDeleted" property="isDeleted" jdbcType="INTEGER"/>
 	</resultMap>
 	<!-- 条件查询 -->
-	<select id="search" parameterType="com.example.demo.model.Menu" resultType="com.example.demo.model.Menu">SELECT * FROM Menu t 
-		<where> 
+	<select id="search" parameterType="com.example.demo.model.Menu" resultType="com.example.demo.model.Menu">SELECT * FROM menu t 
+		<trim prefix="where " suffixOverrides="and"> 
 			<if test="id != null">id=#{id} and</if>  
 			<if test="menuName != null">menuName=#{menuName} and</if>  
 			<if test="url != null">url=#{url} and</if>  
@@ -30,13 +30,13 @@
 			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
 			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>  
 			<if test="createTime != null">createTime=#{createTime} and</if>  
-			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if> 1=1
-		</where> 
+			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if> 
+		</trim> 
 	</select>
 	<!-- 添加一个对象 -->
-	<insert id="addOne" parameterType="com.example.demo.model.Menu">INSERT INTO Menu ( id , menuName , url , deleteTime , deleteUserId , updateLastTime , createTime , isDeleted ) VALUES ( #{id} , #{menuName} , #{url} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} , #{createTime} , #{isDeleted} )</insert>
+	<insert id="addOne" parameterType="com.example.demo.model.Menu">INSERT INTO menu ( id , menuName , url , deleteTime , deleteUserId , updateLastTime , createTime , isDeleted ) VALUES ( #{id} , #{menuName} , #{url} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} , #{createTime} , #{isDeleted} )</insert>
 	<!-- 修改不为null的字段 -->
-	<update id="update" parameterType="com.example.demo.model.Menu">UPDATE Menu 
+	<update id="update" parameterType="com.example.demo.model.Menu">UPDATE menu 
 		<set> 
 			<if test="id != null">id=#{id},</if>  
 			<if test="menuName != null">menuName=#{menuName},</if>  
@@ -49,11 +49,11 @@
 		</set> WHERE id = #{id}
 	</update>
 	<!-- 根据id获取一个对象 -->
-	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.Menu">SELECT * FROM Menu t WHERE id = #{id} 
+	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.Menu">SELECT * FROM menu t WHERE id = #{id} 
 		<if test="isDeleted != null">and isDeleted=#{isDeleted}</if> 
 	</select>
 	<!-- 根据条件 逻辑删除对象 -->
-	<update id="delete" parameterType="com.example.demo.model.Menu">update Menu set isDeleted = 1 
+	<update id="delete" parameterType="com.example.demo.model.Menu">update menu set isDeleted = 1 
 		<trim> 
 			<if test="deleteTime != null">, deleteTime=#{deleteTime}</if>  
 			<if test="deleteUserId != null">, deleteUserId=#{deleteUserId}</if> 

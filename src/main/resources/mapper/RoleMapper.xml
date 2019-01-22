@@ -21,8 +21,8 @@
 		<result column="isDeleted" property="isDeleted" jdbcType="INTEGER"/>
 	</resultMap>
 	<!-- 条件查询 -->
-	<select id="search" parameterType="com.example.demo.model.Role" resultType="com.example.demo.model.Role">SELECT * FROM Role t 
-		<where> 
+	<select id="search" parameterType="com.example.demo.model.Role" resultType="com.example.demo.model.Role">SELECT * FROM role t 
+		<trim prefix="where " suffixOverrides="and"> 
 			<if test="id != null">id=#{id} and</if>  
 			<if test="roleName != null">roleName=#{roleName} and</if>  
 			<if test="roleSign != null">roleSign=#{roleSign} and</if>  
@@ -30,13 +30,13 @@
 			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
 			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>  
 			<if test="createTime != null">createTime=#{createTime} and</if>  
-			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if> 1=1
-		</where> 
+			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if> 
+		</trim> 
 	</select>
 	<!-- 添加一个对象 -->
-	<insert id="addOne" parameterType="com.example.demo.model.Role">INSERT INTO Role ( id , roleName , roleSign , deleteTime , deleteUserId , updateLastTime , createTime , isDeleted ) VALUES ( #{id} , #{roleName} , #{roleSign} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} , #{createTime} , #{isDeleted} )</insert>
+	<insert id="addOne" parameterType="com.example.demo.model.Role">INSERT INTO role ( id , roleName , roleSign , deleteTime , deleteUserId , updateLastTime , createTime , isDeleted ) VALUES ( #{id} , #{roleName} , #{roleSign} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} , #{createTime} , #{isDeleted} )</insert>
 	<!-- 修改不为null的字段 -->
-	<update id="update" parameterType="com.example.demo.model.Role">UPDATE Role 
+	<update id="update" parameterType="com.example.demo.model.Role">UPDATE role 
 		<set> 
 			<if test="id != null">id=#{id},</if>  
 			<if test="roleName != null">roleName=#{roleName},</if>  
@@ -49,11 +49,11 @@
 		</set> WHERE id = #{id}
 	</update>
 	<!-- 根据id获取一个对象 -->
-	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.Role">SELECT * FROM Role t WHERE id = #{id} 
+	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.Role">SELECT * FROM role t WHERE id = #{id} 
 		<if test="isDeleted != null">and isDeleted=#{isDeleted}</if> 
 	</select>
 	<!-- 根据条件 逻辑删除对象 -->
-	<update id="delete" parameterType="com.example.demo.model.Role">update Role set isDeleted = 1 
+	<update id="delete" parameterType="com.example.demo.model.Role">update role set isDeleted = 1 
 		<trim> 
 			<if test="deleteTime != null">, deleteTime=#{deleteTime}</if>  
 			<if test="deleteUserId != null">, deleteUserId=#{deleteUserId}</if> 

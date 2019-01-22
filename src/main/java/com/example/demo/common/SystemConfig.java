@@ -14,5 +14,10 @@ public class SystemConfig {
 	 * 默认分页 pagesize
 	 */
 	private int defaultPageSize;
-
+	
+	/**
+	 * token有效时间
+	 */
+	private long tokeExpireTime;
+	
 }
