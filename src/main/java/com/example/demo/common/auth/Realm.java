@@ -8,6 +8,10 @@ import com.example.demo.common.HttpException;
 import com.example.demo.common.auth.JwtService;
 import com.example.demo.common.base.BaseReqParam;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -50,11 +54,24 @@ public class Realm extends AuthorizingRealm {
         String username = JwtUtil.getUsername(principals.toString());
         User userCon=new User();
         userCon.setUsername(username);
-        BaseReqParam<User> baseParam=new BaseReqParam<User>();
-        baseParam.setSearchParam(userCon);
-        User userRes = (User)userService.searchWithPage(baseParam);
+        
+        List<User> userList=userService.search(userCon);
+        if(userList==null||userList.size()<=0) {
+        	throw new HttpException(HttpCode.AUTH_FAIL);
+        }
+        User userRes = userList.get(0);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+        
+        //获得该用户角色
+        String roleId = userRes.getRoleId();
+        Set<String> roleSet = new HashSet<>();
+        //需要将 role, permission 封装到 Set 作为 info.setRoles(), info.setStringPermissions() 的参数
+        roleSet.add(roleId);
+        //设置该用户拥有的角色和权限
+        simpleAuthorizationInfo.setRoles(roleSet);
+        
         return simpleAuthorizationInfo;
+        
     }
  
     /**

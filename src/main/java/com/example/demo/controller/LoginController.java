@@ -38,6 +38,7 @@ public class LoginController{
 	@ApiOperation(value = "/user",notes = "普通登陆")
     @PostMapping("/user")
     public Object user(@RequestBody @Valid LoginParam loginParam){
+		//TODO need fix
 		try {
 			User user=new User();
 			String loginUsername=loginParam.getUsername();
