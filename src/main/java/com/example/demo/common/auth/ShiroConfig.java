@@ -45,7 +45,7 @@ public class ShiroConfig {
  
  
         //未授权界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+//        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
  
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
  

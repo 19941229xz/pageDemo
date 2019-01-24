@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.common.HttpCode;
+import com.example.demo.common.HttpException;
 import com.example.demo.common.base.BaseReqParam;
 import com.example.demo.dao.RoleMapper;
 import com.example.demo.model.Role;
@@ -22,9 +24,20 @@ public class RoleServiceImpl implements RoleService {
 		List<Role> roleList = roleMapper.search((Role)param.getSearchParam());
 		return roleList;
 	}
+    
+    @Override
+	public List<Role> search(Role searchParam) {
+		List<Role> roleList = roleMapper.search(searchParam);
+		return roleList;
+	}
 
 	@Override
-	public Object addOne(Role addParam) {
+	public Object addOne(Role addParam) {     
+    	Role roleCon=new Role();	
+        roleCon.setRoleName(addParam.getRoleName());
+        if(search(roleCon).size()>0) {
+			throw new HttpException(HttpCode.NAME_REGISTERED).setMsg("角色名称已经被注册");
+		}
 		return roleMapper.addOne(addParam);
 	}
 

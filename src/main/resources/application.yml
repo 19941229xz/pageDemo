@@ -36,7 +36,7 @@ mybatis:
 
 systemconfig:
   defaultPageSize: 20  
-  tokeExpireTime: 1800000     # 30 * 60 * 1000 ==>30min
+  tokeExpireTime: 180000000000000     # 30 * 60 * 1000 ==>30min
 
   
 

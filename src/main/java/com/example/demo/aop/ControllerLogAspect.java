@@ -52,7 +52,8 @@ public class ControllerLogAspect {
         Object target = proceedingJoinPoint.getTarget(); 
         
         //对象转换
-        BaseReqParam<Object> param=(BaseReqParam<Object>)args[0];
+//        BaseReqParam<Object> param=(BaseReqParam<Object>)args[0];
+        Object param=args[0];
 //        //分页
 //        pageOpration(param);
 //        //排序

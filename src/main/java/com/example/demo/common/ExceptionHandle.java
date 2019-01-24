@@ -1,5 +1,6 @@
 package com.example.demo.common;
 
+import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,11 +28,32 @@ public class ExceptionHandle {
         	log.info("【参数错误】{}", e.getMessage());
         	return error(new HttpException().setCode(HttpCode.BAD_PARAM)
         			.setMsg(msg));
+        	
+        	
+        	
+        }else if(e instanceof AuthenticationException){
+        	AuthenticationException exception = (AuthenticationException) e;
+        	String msg=exception.getMessage();
+        	log.info("【参数错误】{}", e.getMessage());
+        	return error(new HttpException().setCode(HttpCode.AUTH_FAIL)
+        			.setMsg(msg));
+        	
+        	
+        	
         }else {
             log.error("【系统未知异常】{}", e.getMessage());
             e.printStackTrace();
             return unknowError();
         }
     }
+	
+	@ExceptionHandler(value = AuthenticationException.class)
+    @ResponseBody
+    public HttpResponse handle(AuthenticationException e) {
+		String msg=e.getMessage();
+    	log.info("【参数错误】{}", e.getMessage());
+    	return error(new HttpException().setCode(HttpCode.AUTH_FAIL)
+    			.setMsg(msg));
+	}
 	
 }

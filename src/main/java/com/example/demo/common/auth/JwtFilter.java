@@ -1,8 +1,11 @@
 package com.example.demo.common.auth;
 
+import com.example.demo.common.HttpCode;
+import com.example.demo.common.HttpException;
 import com.example.demo.common.auth.JwtToken;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMethod;
  
 import javax.servlet.ServletRequest;
@@ -31,8 +34,12 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
             executeLogin(request, response);
             return true;
         } catch (Exception e) {
-            return false;
+        	// 如果这里不抛出异常  shiro就会自己去处理异常  就不能完成返回结果的统一封装
+        	throw new HttpException(HttpCode.AUTH_FAIL);
+        	
+//            return false;
         }
+    	
     }
  
     /**
@@ -42,7 +49,11 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String token = httpServletRequest.getHeader("Authorization");
- 
+        // 校验token非空
+        if(StringUtils.isEmpty(token)) {
+        	throw new HttpException(HttpCode.NULL_TOKEN);
+        }
+        
         JwtToken jwtToken = new JwtToken(token);
         // 提交给realm进行登入，如果错误他会抛出异常并被捕获
         getSubject(request, response).login(jwtToken);

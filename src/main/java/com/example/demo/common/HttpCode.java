@@ -6,6 +6,10 @@ public enum HttpCode {
 	,UNKNOW_ERROR(10500,"服务未知异常")
 	,BAD_PARAM(10400,"参数错误")
 	,ITEM_NOT_FOUND(10404,"数据找不到")
+	,NULL_TOKEN(10501,"token为空")
+	,AUTH_FAIL(10502,"认证失败")
+	,LOGIN_FAIL(10503,"登陆失败")
+	,NAME_REGISTERED(10503,"名称或账号已经被注册")
 	;
 
 	private String msg;

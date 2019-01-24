@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.common.HttpCode;
+import com.example.demo.common.HttpException;
+import com.example.demo.common.HttpResponse;
 import com.example.demo.common.auth.JwtService;
 import com.example.demo.common.base.BaseReqParam;
+import com.example.demo.common.req.LoginParam;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 
@@ -30,9 +36,31 @@ public class LoginController{
 
 	@ApiOperation(value = "/user",notes = "普通登陆")
     @PostMapping("/user")
-    public Object user(@RequestBody BaseReqParam<User> param){
-		
-        return jwtService.sign("tom", "123");
+    public Object user(@RequestBody @Valid LoginParam loginParam){
+		try {
+			User user=new User();
+			String loginUsername=loginParam.getUsername();
+			String loginPassword=loginParam.getPassword();
+			user.setPassword(loginPassword);
+			user.setUsername(loginUsername);
+			
+					
+			
+			List<User> userList= userService.search(user);
+			if(userList.size()==1) {
+				User userRes=userList.get(0);
+				if((userRes.getPassword().equals(loginPassword))&&
+						(userRes.getUsername().equals(loginUsername))) {
+					return HttpResponse.success(jwtService.sign( loginUsername, loginPassword));
+				}else {
+					return HttpResponse.error(new HttpException(HttpCode.LOGIN_FAIL).setMsg("用户名或密码错误"));
+				}
+			}else {
+				return HttpResponse.error(new HttpException(HttpCode.LOGIN_FAIL).setMsg("用户名或密码错误"));
+			}
+		} catch (Exception e) {
+			throw new HttpException(HttpCode.LOGIN_FAIL);
+		}
     }
 
 	

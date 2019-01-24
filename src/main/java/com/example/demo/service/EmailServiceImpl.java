@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.common.HttpCode;
+import com.example.demo.common.HttpException;
 import com.example.demo.common.base.BaseReqParam;
 import com.example.demo.dao.EmailMapper;
 import com.example.demo.model.Email;
@@ -22,9 +24,20 @@ public class EmailServiceImpl implements EmailService {
 		List<Email> emailList = emailMapper.search((Email)param.getSearchParam());
 		return emailList;
 	}
+    
+    @Override
+	public List<Email> search(Email searchParam) {
+		List<Email> emailList = emailMapper.search(searchParam);
+		return emailList;
+	}
 
 	@Override
-	public Object addOne(Email addParam) {
+	public Object addOne(Email addParam) {     
+    	Email emailCon=new Email();	
+        emailCon.setEmailAddress(addParam.getEmailAddress());
+        if(search(emailCon).size()>0) {
+			throw new HttpException(HttpCode.NAME_REGISTERED).setMsg("邮箱地址已经被注册");
+		}
 		return emailMapper.addOne(addParam);
 	}
 

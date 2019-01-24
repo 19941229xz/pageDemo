@@ -1,7 +1,9 @@
 package com.example.demo.common.auth;
 
+import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -11,6 +13,8 @@ import com.auth0.jwt.interfaces.DecodedJWT;
  
 import java.util.Date;
 
+import com.example.demo.common.HttpCode;
+import com.example.demo.common.HttpException;
 import com.example.demo.common.SystemConfig;
 
 @Service
@@ -48,6 +52,9 @@ public class JwtService {
      * @return token中包含的用户名
      */
     public String getUsername(String token) {
+    	if(StringUtils.isEmpty(token)) {
+    		throw new AuthenticationException("token为空");
+        }
         try {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim("username").asString();
@@ -57,7 +64,7 @@ public class JwtService {
     }
  
     /**
-     * 生成签名,5min后过期
+     * 生成签名,过期时间在systemConfig配置中查看
      *
      * @param username 用户名
      * @param secret   用户的密码

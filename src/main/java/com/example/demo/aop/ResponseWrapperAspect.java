@@ -45,7 +45,7 @@ public class ResponseWrapperAspect {
         //获取连接点所在的类的对象(实例)
         Object target = proceedingJoinPoint.getTarget(); 
         //对象转换
-        BaseReqParam<Object> param=(BaseReqParam<Object>)args[0];
+//        BaseReqParam<Object> param=(BaseReqParam<Object>)args[0];
         
         Object object = proceedingJoinPoint.proceed();
 

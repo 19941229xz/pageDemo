@@ -3,6 +3,8 @@ package com.example.demo.common.auth;
 
 import com.example.demo.service.UserService;
 import com.example.demo.model.User;
+import com.example.demo.common.HttpCode;
+import com.example.demo.common.HttpException;
 import com.example.demo.common.auth.JwtService;
 import com.example.demo.common.base.BaseReqParam;
 
@@ -16,6 +18,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
  
 /**
  * @author xiongzh
@@ -68,9 +71,7 @@ public class Realm extends AuthorizingRealm {
  
         User userCon=new User();
         userCon.setUsername(username);
-        BaseReqParam<User> baseParam=new BaseReqParam<User>();
-        baseParam.setSearchParam(userCon);
-        User userRes = (User)userService.searchWithPage(baseParam);
+        User userRes = userService.search(userCon).get(0);
         if (userRes == null) {
             throw new AuthenticationException("用户不存在!");
         }

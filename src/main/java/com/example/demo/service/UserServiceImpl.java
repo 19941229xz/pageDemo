@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.common.HttpCode;
+import com.example.demo.common.HttpException;
 import com.example.demo.common.base.BaseReqParam;
 import com.example.demo.dao.UserMapper;
 import com.example.demo.model.User;
@@ -22,9 +24,20 @@ public class UserServiceImpl implements UserService {
 		List<User> userList = userMapper.search((User)param.getSearchParam());
 		return userList;
 	}
+    
+    @Override
+	public List<User> search(User searchParam) {
+		List<User> userList = userMapper.search(searchParam);
+		return userList;
+	}
 
 	@Override
-	public Object addOne(User addParam) {
+	public Object addOne(User addParam) {     
+    	User userCon=new User();	
+        userCon.setUsername(addParam.getUsername());
+        if(search(userCon).size()>0) {
+			throw new HttpException(HttpCode.NAME_REGISTERED).setMsg("账号已经被注册");
+		}
 		return userMapper.addOne(addParam);
 	}
 
