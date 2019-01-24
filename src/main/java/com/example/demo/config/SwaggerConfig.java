@@ -3,16 +3,24 @@ package com.example.demo.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.example.demo.common.HttpCode;
+import com.example.demo.common.SystemConfig;
+
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.Parameter;
+import springfox.documentation.service.ResponseMessage;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -23,6 +31,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+	@Autowired
+	SystemConfig systemConfig;
  
     @Bean
     public Docket docket(){
@@ -33,31 +43,40 @@ public class SwaggerConfig {
     	.required(false).build(); //header中的ticket参数非必填，传空也可以
     	pars.add(ticketPar.build()); 
     	
-        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
+    	List<ResponseMessage> responseMessageList = new ArrayList<>();
+    	for (HttpCode httpCode : HttpCode.values()) {
+    		responseMessageList.add(new ResponseMessageBuilder().code(httpCode.getCode()).message(httpCode.getMsg()).build());
+		}
+
+    	
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.globalResponseMessage(RequestMethod.GET, responseMessageList)
+                .globalResponseMessage(RequestMethod.POST, responseMessageList)
+                .globalResponseMessage(RequestMethod.PUT, responseMessageList)
+                .globalResponseMessage(RequestMethod.DELETE, responseMessageList)
+        		.apiInfo(apiInfo()).select()
 //                   当前包路径
                    .apis(RequestHandlerSelectors.basePackage("com.example.demo.controller"))
                     .paths(PathSelectors.any()).build().globalOperationParameters(pars);
         
-//        return new Docket(DocumentationType.SWAGGER_2)
-//        		.select()
-//        		.apis(RequestHandlerSelectors.any())  
-//                .build()  
-//                .globalOperationParameters(pars)  
-//                .apiInfo(apiInfo());
  
     }
+    
+    
 //构建api文档的详细信息函数
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
                 //页面标题
-                    .title("springBoot测试使用Swagger2构建RESTful API")
+                    .title(systemConfig.getSwaggerTitle())
                 //创建人
-                    .contact(new Contact("xiongzh","http://www.baidu.com",""))
+                    .contact(new Contact(systemConfig.getSwaggerContactName(),
+                    		systemConfig.getSwaggerContactWebUrl(),
+                    		systemConfig.getSwaggerContactEmail()))
                  //版本号
-                    .version("1.0")
+                    .version(systemConfig.getSwaggerVersion())
                 //描述
-                    .description("API 描述")
-                    .termsOfServiceUrl("xiongzh")
+                    .description(systemConfig.getSwaggerDescription())
+                    .termsOfServiceUrl(systemConfig.getSwaggerTermsOfServiceUrl())
                     .build();
     }
 }

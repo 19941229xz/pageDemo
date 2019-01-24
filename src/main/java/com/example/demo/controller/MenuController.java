@@ -17,7 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 
-@Api("MenuController相关api")
+@Api(value="MenuController相关api",description="菜单接口详细描述信息")
 @RestController
 @RequestMapping("menu")
 public class MenuController implements BaseController<Menu>{

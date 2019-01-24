@@ -17,7 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 
-@Api("EmailController相关api")
+@Api(value="EmailController相关api",description="邮件接口详细描述信息")
 @RestController
 @RequestMapping("email")
 public class EmailController implements BaseController<Email>{

@@ -1,44 +1,46 @@
+#spring:
+#  datasource:
+#    name: druidDataSource
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://180.76.99.32:3306/test?serverTimezone=CTT&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
+#    username: root
+#    password: 19941229xz@
+#    druid:
+#      filters: stat,wall,slf4j,config
+#      max-active: 100
+#      initial-size: 1
+#      max-wait: 60000
+#      min-idle: 1
+#      time-between-eviction-runs-millis: 60000
+#      min-evictable-idle-time-millis: 300000
+#      validation-query: select 'x'
+#      test-while-idle: true
+#      test-on-borrow: false
+#      test-on-return: false
+#      pool-prepared-statements: true
+#      max-open-prepared-statements: 50
+#      max-pool-prepared-statement-per-connection-size: 20
+#      
+#logging:
+#  level:
+#     com.example.demo.dao : debug
+#     com.example.demo.aop : debug
+#pagehelper:
+#  helper-dialect: mysql
+#  reasonable: true
+#  support-methods-arguments: true
+#  params: 
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml
+#
+#systemconfig:
+#  defaultPageSize: 20  
+#  tokeExpireTime: 180000000000000     # 30 * 60 * 1000 ==>30min
+
 spring:
-  datasource:
-    name: druidDataSource
-    type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://180.76.99.32:3306/test?serverTimezone=CTT&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
-    username: root
-    password: 19941229xz@
-    druid:
-      filters: stat,wall,slf4j,config
-      max-active: 100
-      initial-size: 1
-      max-wait: 60000
-      min-idle: 1
-      time-between-eviction-runs-millis: 60000
-      min-evictable-idle-time-millis: 300000
-      validation-query: select 'x'
-      test-while-idle: true
-      test-on-borrow: false
-      test-on-return: false
-      pool-prepared-statements: true
-      max-open-prepared-statements: 50
-      max-pool-prepared-statement-per-connection-size: 20
-      
-logging:
-  level:
-     com.example.demo.dao : debug
-     com.example.demo.aop : debug
-pagehelper:
-  helper-dialect: mysql
-  reasonable: true
-  support-methods-arguments: true
-  params: 
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
-
-systemconfig:
-  defaultPageSize: 20  
-  tokeExpireTime: 180000000000000     # 30 * 60 * 1000 ==>30min
-
-  
+  profiles:
+    active: test
 
   
   

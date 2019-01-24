@@ -17,7 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 
-@Api("RoleController相关api")
+@Api(value="RoleController相关api",description="角色接口详细描述信息")
 @RestController
 @RequestMapping("role")
 public class RoleController implements BaseController<Role>{

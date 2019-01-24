@@ -1,14 +1,20 @@
 package com.example.demo.common;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+@ApiModel(value="HttpResponse",description="返回结果")
 @Data
 public class HttpResponse {
 
+	@ApiModelProperty(value="返回状态码",name="code")
 	private int code;
 	
+	@ApiModelProperty(value="返回提示",name="msg")
 	private String msg;
 	
+	@ApiModelProperty(value="返回数据",name="content")
 	private Object content;
 	
 	public static HttpResponse error(HttpException e){

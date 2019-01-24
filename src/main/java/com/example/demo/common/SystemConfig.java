@@ -20,4 +20,39 @@ public class SystemConfig {
 	 */
 	private long tokeExpireTime;
 	
+	/**
+	 * swagger标题
+	 */
+	private String swaggerTitle;
+	
+	/**
+	 * swagger联系人名称
+	 */
+	private String swaggerContactName;
+	
+	/**
+	 * swagger联系网站
+	 */
+	private String swaggerContactWebUrl;
+	
+	/**
+	 * swagger联系人邮箱
+	 */
+	private String swaggerContactEmail;
+	
+	/**
+	 * swaggerAPI文档版本
+	 */
+	private String swaggerVersion;
+	
+	/**
+	 * swagger文档描述
+	 */
+	private String swaggerDescription;
+	
+	/**
+	 * swagger不可见条款
+	 */
+	private String swaggerTermsOfServiceUrl;
+	
 }

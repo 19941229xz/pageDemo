@@ -14,16 +14,17 @@ import com.example.demo.common.HttpCode;
 import com.example.demo.common.HttpException;
 import com.example.demo.common.HttpResponse;
 import com.example.demo.common.auth.JwtService;
-import com.example.demo.common.base.BaseReqParam;
 import com.example.demo.common.req.LoginParam;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 
-@Api("LoginController相关api")
+@Api(value="LoginControllerApi",description="登陆接口详细描述")
 @RestController
 @RequestMapping("login")
 public class LoginController{

@@ -17,7 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 
-@Api("UserController相关api")
+@Api(value="UserController相关api",description="用户接口详细描述信息")
 @RestController
 @RequestMapping("user")
 public class UserController implements BaseController<User>{
