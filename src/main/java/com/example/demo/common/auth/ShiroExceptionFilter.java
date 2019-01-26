@@ -29,14 +29,17 @@ public class ShiroExceptionFilter extends OncePerRequestFilter {
         } catch (Exception e) {
 
             // 自定义异常的类，用户返回给客户端相应的JSON格式的信息
-
             response.setContentType("application/json; charset=utf-8");
             response.setCharacterEncoding("UTF-8");
-
-            String userJson = convertObjectToJson(HttpResponse.error(new HttpException(HttpCode.AUTH_FAIL)));
+            // 如果不是自定义的异常默认是shiro认证失败的异常
+            String rspJson=(e instanceof HttpException)?convertObjectToJson(HttpResponse.error((HttpException)e)):
+            	convertObjectToJson(HttpResponse.error(new HttpException(HttpCode.AUTH_FAIL)));
+            
             OutputStream out = response.getOutputStream();
-            out.write(userJson.getBytes("UTF-8"));
+            out.write(rspJson.getBytes("UTF-8"));
             out.flush();
+
+            
         }
     }
 

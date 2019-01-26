@@ -9,7 +9,8 @@ public enum HttpCode {
 	,NULL_TOKEN(10501,"token为空")
 	,AUTH_FAIL(10502,"认证失败")
 	,LOGIN_FAIL(10503,"登陆失败")
-	,NAME_REGISTERED(10503,"名称或账号已经被注册")
+	,NAME_REGISTERED(10504,"名称或账号已经被注册")
+	,ACCESS_DENY(10401,"没有权限")
 	;
 
 	private String msg;

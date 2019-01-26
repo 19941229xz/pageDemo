@@ -4,6 +4,9 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -12,10 +15,16 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
  
 import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.example.demo.common.HttpCode;
 import com.example.demo.common.HttpException;
 import com.example.demo.common.SystemConfig;
+import com.example.demo.model.User;
+import com.example.demo.service.UserService;
+import com.example.demo.service.UserServiceImpl;
 
 @Service
 public class JwtService {
@@ -23,6 +32,9 @@ public class JwtService {
 	
 	@Autowired
 	private SystemConfig systemConfig;
+	
+	@Autowired
+	UserService userService;
 	
 	 /**
      * 校验token是否正确
@@ -58,6 +70,36 @@ public class JwtService {
         try {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim("username").asString();
+        } catch (JWTDecodeException e) {
+            return null;
+        }
+    }
+    
+    /**
+     * 根据token中的username 获取完整用户信息
+     *
+     * @return token中包含的用户名
+     */
+    public User getUserInfo() {
+      RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+      ServletRequestAttributes sra = (ServletRequestAttributes) ra;
+      HttpServletRequest request = sra.getRequest();
+//      System.out.println(request.getHeader("Authorization"));
+      String token=request.getHeader("Authorization");
+    	if(StringUtils.isEmpty(token)) {
+    		throw new AuthenticationException("token为空");
+        }
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            String username= jwt.getClaim("username").asString();
+            User userCon=new User();
+            userCon.setUsername(username);
+            List<User> userList=userService.search(userCon);
+            if(userList!=null&&userList.size()==1) {
+            	return userService.search(userCon).get(0);
+            }else {
+            	throw new AuthenticationException("该账号不存在");
+            }
         } catch (JWTDecodeException e) {
             return null;
         }

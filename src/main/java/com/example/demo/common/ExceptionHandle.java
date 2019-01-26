@@ -51,7 +51,7 @@ public class ExceptionHandle {
     @ResponseBody
     public HttpResponse handle(AuthenticationException e) {
 		String msg=e.getMessage();
-    	log.info("【参数错误】{}", e.getMessage());
+    	log.info("【认证失败】{}", e.getMessage());
     	return error(new HttpException().setCode(HttpCode.AUTH_FAIL)
     			.setMsg(msg));
 	}

@@ -3,7 +3,6 @@ package com.example.demo.aop;
 import java.lang.reflect.Method;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -13,12 +12,14 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import static org.springframework.util.StringUtils.*;
 
-import com.example.demo.common.SystemConfig;
+import com.example.demo.common.HttpCode;
+import com.example.demo.common.HttpException;
+import com.example.demo.common.auth.JwtService;
 import com.example.demo.common.base.BaseReqParam;
+import com.example.demo.model.Role;
+
 import static com.example.demo.common.util.AopUtil.*;
 import static com.example.demo.common.util.UUIDUtil.*;
 
@@ -33,8 +34,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ControllerAddAspect {
 	
-//	@Autowired
-//	private SystemConfig systemConfig;
+	@Autowired
+	JwtService jwtService;
 	
 	// 拦截 controller addOne 所有方法
     @Pointcut("execution(public * com.example.demo.controller.*.addOne(..))")
@@ -55,12 +56,9 @@ public class ControllerAddAspect {
     public Object processAddParam(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
     	log.debug("进入ControllerAddAspect AOP");
     	
-    	// test
-//    	RequestAttributes ra = RequestContextHolder.getRequestAttributes();
-//        ServletRequestAttributes sra = (ServletRequestAttributes) ra;
-//        HttpServletRequest request = sra.getRequest();
-//        System.out.println(request.getHeader("Authorization"));
 
+//    	System.out.println("this user role id is"+jwtService.getUserInfo().getRoleId());
+    	
         //获取连接点方法运行时的入参列表
         Object[] args = proceedingJoinPoint.getArgs();
 
@@ -75,8 +73,22 @@ public class ControllerAddAspect {
         //对象转换
         BaseReqParam<Object> param=(BaseReqParam<Object>)args[0];
         
-        // add param  ieDeleted  must be 0 
+        // 获取addParam
         Object obj= param.getAddParam();
+        
+        //添加role时 需要前端生成id  例如：SYS_ADMIN 如果没传id 需要提示
+        if((obj instanceof Role)) {
+        	//判断id不为空
+        	if(isEmpty(getFieldValue(obj, "id"))) {
+        		throw new HttpException(HttpCode.BAD_PARAM).setMsg("添加role时 需要前端生成id  例如：SYS_ADMIN");
+        	}
+        	//只有系统管理员 有添加角色的权限
+        	if(!jwtService.getUserInfo().getRoleId().equals("SYS_ADMIN")) {
+        		throw new HttpException(HttpCode.ACCESS_DENY).setMsg("您没有添加角色的权限");
+        	}
+        	
+        }
+        // add param  ieDeleted  must be 0 
         setFieldValue(obj,"isDeleted",0);
         // add param need auto-generate a id
         setFieldValue(obj,"id",uuid());
