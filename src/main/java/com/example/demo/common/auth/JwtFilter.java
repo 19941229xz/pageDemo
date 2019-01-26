@@ -21,7 +21,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
  
  
     /**
-     * 执行登录认证
+     * 执行登录认证 
      *
      * @param request
      * @param response
@@ -36,14 +36,12 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         } catch (Exception e) {
         	// 如果这里不抛出异常  shiro就会自己去处理异常  就不能完成返回结果的统一封装
         	throw new HttpException(HttpCode.AUTH_FAIL);
-        	
 //            return false;
         }
-    	
     }
  
     /**
-     *
+     * 校验 token有效性 （非空 有效 权限）
      */
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
@@ -53,9 +51,8 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         if(StringUtils.isEmpty(token)) {
         	throw new HttpException(HttpCode.NULL_TOKEN);
         }
-        
         JwtToken jwtToken = new JwtToken(token);
-        // 提交给realm进行登入，如果错误他会抛出异常并被捕获
+        // 提交给realm进行登入，如果错误他会抛出异常并被捕获 在realm中校验用户数据的合法性和权限（如果接口上有权限注解）
         getSubject(request, response).login(jwtToken);
         // 如果没有抛出异常则代表登入成功，返回true
         return true;

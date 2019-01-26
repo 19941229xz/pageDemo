@@ -17,7 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 
-@Order(1)
+/**
+ * 
+ * @author xiongzh
+ * @date 2019-01-26
+ * @comment shiro权限 是通过filter 实现 抛出的异常在filter中  此filter负责处理该异常  实现输出结果和异常的统一封装
+ */
+@Order(1) // 表示最先实例化
 @WebFilter(filterName = "ShiroExceptionFilter",urlPatterns = {"/*"})
 public class ShiroExceptionFilter extends OncePerRequestFilter {
 

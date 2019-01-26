@@ -19,7 +19,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
  
 /**
- * @author: PENG
+ * @author: xiongzh
  * @date: 2018/2/7
  * @description: shiro 配置类
  */

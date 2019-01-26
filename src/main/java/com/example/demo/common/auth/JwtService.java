@@ -38,7 +38,7 @@ public class JwtService {
 	
 	 /**
      * 校验token是否正确
-     *
+     * 利用用户的密码 作为加密算法的 盐
      * @param token  密钥
      * @param secret 用户的密码
      * @return 是否正确
@@ -84,12 +84,11 @@ public class JwtService {
       RequestAttributes ra = RequestContextHolder.getRequestAttributes();
       ServletRequestAttributes sra = (ServletRequestAttributes) ra;
       HttpServletRequest request = sra.getRequest();
-//      System.out.println(request.getHeader("Authorization"));
       String token=request.getHeader("Authorization");
     	if(StringUtils.isEmpty(token)) {
     		throw new AuthenticationException("token为空");
         }
-        try {
+        try { // TODO need fix
             DecodedJWT jwt = JWT.decode(token);
             String username= jwt.getClaim("username").asString();
             User userCon=new User();
@@ -113,14 +112,14 @@ public class JwtService {
      * @return 加密的token
      */
     public String sign(String username, String secret) {
+    	// 从配置中读取 token有效时长
         Date date = new Date(System.currentTimeMillis() + systemConfig.getTokeExpireTime());
         Algorithm algorithm = Algorithm.HMAC256(secret);
         // 附带username信息
         return JWT.create()
-                .withClaim("username", username)
+                .withClaim("username", username) // 在 载荷中 加入username 也可以把用户的其他信息放入载荷中
                 .withExpiresAt(date)
                 .sign(algorithm);
- 
     }
 
 }

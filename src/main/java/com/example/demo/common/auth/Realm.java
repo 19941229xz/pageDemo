@@ -80,7 +80,7 @@ public class Realm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken auth) throws AuthenticationException {
         String token = (String) auth.getCredentials();
-        // 解密获得username，用于和数据库进行对比
+        // 解密获得username 查看数据库中是否存在 不存在说明该用户数据不合法
         String username = JwtUtil.getUsername(token);
         if (username == null) {
             throw new AuthenticationException("token无效");
