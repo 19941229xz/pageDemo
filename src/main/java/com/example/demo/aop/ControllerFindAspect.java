@@ -31,9 +31,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ControllerFindAspect {
 	
-	@Autowired
-	private SystemConfig systemConfig;
-	
 	// 拦截 controller search方法
     @Pointcut("execution(public * com.example.demo.controller.*.search(..))")
     public void searchFindFunction(){}
@@ -42,18 +39,18 @@ public class ControllerFindAspect {
     @Pointcut("execution(public * com.example.demo.controller.*.getOne(..))")
     public void getOneFindFunction(){}
     
-    
+    // ||表示同时拦截两个切点
     @Pointcut("searchFindFunction() || getOneFindFunction()")
     private void finalPoint(){}
     
     
     /**
-     * 处理controller 中的 add param
+     * 处理controller 中的 search param
      * @throws Throwable 
      */
     @Around("finalPoint()")
     public Object processAddParam(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-    	log.debug("进入ControllerUpdateAspect AOP");
+    	log.debug("进入ControllerFindAspect AOP");
 
         //获取连接点方法运行时的入参列表
         Object[] args = proceedingJoinPoint.getArgs();
@@ -61,7 +58,6 @@ public class ControllerFindAspect {
         //获取连接点的方法签名对象 和被拦截的方法
         Signature signature = proceedingJoinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;  
-        Method method = methodSignature.getMethod();
         
         //获取连接点所在的类的对象(实例)
         Object target = proceedingJoinPoint.getTarget(); 
@@ -76,12 +72,12 @@ public class ControllerFindAspect {
         Object object = proceedingJoinPoint.proceed();
         
         // TODO this code need fix to more simple
-       if(object == null) {
+       if(object == null) { // 被拦截的查询方法返回null  返回自定义异常 ITEM_NOT_FOUND
     	   throw new HttpException(HttpCode.ITEM_NOT_FOUND);
        }else {
     	   if(object instanceof HttpResponse) {
     		   HttpResponse rsp= (HttpResponse)object ;
-    		   if(rsp.getContent()==null) {
+    		   if(rsp.getContent()==null) { // 如果rsp 内容为空 也返回自定义异常 ITEM_NOT_FOUND
     			   throw new HttpException(HttpCode.ITEM_NOT_FOUND);
     		   }
     	   }
@@ -89,11 +85,6 @@ public class ControllerFindAspect {
         
         return object;
     }
-    
-    	
-    	
-    
-    
     
 
 }

@@ -26,9 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ResponseWrapperAspect {
 	
-	@Autowired
-	private SystemConfig systemConfig;
-	
 	// 拦截 controller 所有方法
     @Pointcut("execution(public * com.example.demo.controller.*.**(..))")
     public void serviceFindFunction(){}
@@ -44,8 +41,6 @@ public class ResponseWrapperAspect {
         Signature signature = proceedingJoinPoint.getSignature();
         //获取连接点所在的类的对象(实例)
         Object target = proceedingJoinPoint.getTarget(); 
-        //对象转换
-//        BaseReqParam<Object> param=(BaseReqParam<Object>)args[0];
         
         Object object = proceedingJoinPoint.proceed();
 

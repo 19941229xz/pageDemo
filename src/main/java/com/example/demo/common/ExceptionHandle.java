@@ -1,6 +1,7 @@
 package com.example.demo.common;
 
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,7 +26,7 @@ public class ExceptionHandle {
         }else if(e instanceof MethodArgumentNotValidException){
         	MethodArgumentNotValidException exception = (MethodArgumentNotValidException) e;
         	String msg=exception.getBindingResult().getFieldError().getDefaultMessage();
-        	log.info("【参数错误】{}", e.getMessage());
+        	log.info("【参数校验失败】{}", e.getMessage());
         	return error(new HttpException().setCode(HttpCode.BAD_PARAM)
         			.setMsg(msg));
         	
@@ -34,10 +35,16 @@ public class ExceptionHandle {
         }else if(e instanceof AuthenticationException){
         	AuthenticationException exception = (AuthenticationException) e;
         	String msg=exception.getMessage();
-        	log.info("【参数错误】{}", e.getMessage());
+        	log.info("【身份认证失败】{}", e.getMessage());
         	return error(new HttpException().setCode(HttpCode.AUTH_FAIL)
         			.setMsg(msg));
         	
+        	
+        }else if(e instanceof UnauthorizedException){
+        	UnauthorizedException exception = (UnauthorizedException) e;
+        	String msg=exception.getMessage();
+        	log.info("【没有访问权限】{}", e.getMessage());
+        	return error(new HttpException(HttpCode.ACCESS_DENY));
         	
         	
         }else {

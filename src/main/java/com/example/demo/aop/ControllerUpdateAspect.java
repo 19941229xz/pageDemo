@@ -28,19 +28,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ControllerUpdateAspect {
 	
-	@Autowired
-	private SystemConfig systemConfig;
-	
 	// 拦截 controller update方法
     @Pointcut("execution(public * com.example.demo.controller.*.update(..))")
     public void addFindFunction(){}
     
-    
-    
-    
-    
     /**
-     * 处理controller 中的 add param
+     * 处理controller 中的 update param
      * @throws Throwable 
      */
     @Around("addFindFunction()")
@@ -53,7 +46,6 @@ public class ControllerUpdateAspect {
         //获取连接点的方法签名对象 和被拦截的方法
         Signature signature = proceedingJoinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;  
-        Method method = methodSignature.getMethod();
         
         //获取连接点所在的类的对象(实例)
         Object target = proceedingJoinPoint.getTarget(); 
@@ -74,15 +66,8 @@ public class ControllerUpdateAspect {
         
         Object object = proceedingJoinPoint.proceed();
         
-       
-        
         return object;
     }
-    
-    	
-    	
-    
-    
     
 
 }

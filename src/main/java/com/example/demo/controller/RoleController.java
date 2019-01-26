@@ -2,6 +2,9 @@ package com.example.demo.controller;
 
 import javax.validation.Valid;
 
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +30,7 @@ public class RoleController implements BaseController<Role>{
 
 	@ApiOperation(value = "查询角色的信息",notes = "在searchParam中添加角色的各种属性作为查询条件")
     @PostMapping("/search")
+	@RequiresRoles(logical = Logical.OR, value = {"vip", "ss"})
     @Override
     public Object search(@RequestBody BaseReqParam<Role> param){
         return roleService.searchWithPage(param);

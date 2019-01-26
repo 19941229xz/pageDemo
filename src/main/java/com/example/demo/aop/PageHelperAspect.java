@@ -71,14 +71,10 @@ public class PageHelperAspect {
 
     }
     
+    // pageHelper 设置分页参数 
     void pageOpration(BaseReqParam<Object> param){
-//    	if(param.getPageParam().getSize()==0){
-//    		PageHelper.startPage(param.getPageParam().getPage(),param.getPageParam().getSize());
-//        }else{
-//        	PageHelper.startPage(param.getPageParam().getPage(),param.getPageParam().getSize());
-//        }
     	if(param.getPageParam()==null){
-    		PageHelper.startPage(0,systemConfig.getDefaultPageSize());
+    		PageHelper.startPage(0,systemConfig.getDefaultPageSize()); // 从配置问价中读取 默认分页大小
     	}else{
     		int size_param=param.getPageParam().getSize();
         	PageHelper.startPage(param.getPageParam().getPage(),size_param==0?
@@ -86,7 +82,7 @@ public class PageHelperAspect {
     	}
     	
     }
-    
+    // pageHelper 设置排序参数
     void sortOpration(BaseReqParam<Object> param){
     	if(param.getSortParam()!=null&&param.getSortParam().length>0){
         	for (int i = 0; i < param.getSortParam().length; i++) {

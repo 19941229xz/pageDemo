@@ -10,7 +10,7 @@ public enum HttpCode {
 	,AUTH_FAIL(10502,"认证失败")
 	,LOGIN_FAIL(10503,"登陆失败")
 	,NAME_REGISTERED(10504,"名称或账号已经被注册")
-	,ACCESS_DENY(10401,"没有权限")
+	,ACCESS_DENY(10401,"没有访问权限")
 	;
 
 	private String msg;

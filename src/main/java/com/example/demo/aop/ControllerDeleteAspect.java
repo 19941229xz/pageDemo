@@ -2,7 +2,6 @@ package com.example.demo.aop;
 
 import java.lang.reflect.Method;
 import java.util.Date;
-import java.util.List;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -12,20 +11,12 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.example.demo.common.SystemConfig;
-import com.example.demo.common.annotation.IdNotEmpty;
-import com.example.demo.common.annotation.IsDeletedSetNull;
 import com.example.demo.common.base.BaseReqParam;
 import static com.example.demo.common.util.AopUtil.*;
 
-import static com.example.demo.common.util.UUIDUtil.*;
-import com.github.pagehelper.PageInfo;
-
 import lombok.extern.slf4j.Slf4j;
-import java.lang.reflect.Field;
 
 /**
  * @author xiongzh
@@ -36,15 +27,9 @@ import java.lang.reflect.Field;
 @Slf4j
 public class ControllerDeleteAspect {
 	
-	@Autowired
-	private SystemConfig systemConfig;
-	
 	// 拦截 controller update方法
     @Pointcut("execution(public * com.example.demo.controller.*.delete(..))")
     public void deleteFindFunction(){}
-    
-    
-    
     
     
     /**
@@ -81,9 +66,6 @@ public class ControllerDeleteAspect {
         setFieldValue(obj, "createTime", null);
         
         Object object = proceedingJoinPoint.proceed();
-        
-        
-        
         
         return object;
     }

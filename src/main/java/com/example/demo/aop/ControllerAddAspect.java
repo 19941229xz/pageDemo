@@ -55,10 +55,7 @@ public class ControllerAddAspect {
     @Around("addFindFunction()")
     public Object processAddParam(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
     	log.debug("进入ControllerAddAspect AOP");
-    	
 
-//    	System.out.println("this user role id is"+jwtService.getUserInfo().getRoleId());
-    	
         //获取连接点方法运行时的入参列表
         Object[] args = proceedingJoinPoint.getArgs();
 
