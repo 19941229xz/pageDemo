@@ -32,7 +32,7 @@ public class ShiroExceptionFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (Exception e) {
-
+        	e.printStackTrace();
             // 自定义异常的类，用户返回给客户端相应的JSON格式的信息
             response.setContentType("application/json; charset=utf-8");
             response.setCharacterEncoding("UTF-8");

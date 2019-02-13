@@ -2,6 +2,9 @@ package com.example.demo.model;
 
 import java.util.Date;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,6 +26,8 @@ public class User {
         
     @ApiModelProperty(value="账号",name="username")
     @NotEmpty(message="账号不能为空")
+    @Pattern(regexp = "^[a-zA-Z0-9]$", message="账号只能由数字和字母组成") 
+    @Size(max=11,min=6,message="账号必须在6到11个字符长度")
 	    private String username; // 账号
     	
         
