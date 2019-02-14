@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.GoodOrderMapper">
+	<resultMap id="queryResultMap" type="com.example.demo.model.GoodOrder">
+		<!-- 主键 -->
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<!-- 商品名称 -->
+		<result column="goodsName" property="goodsName" jdbcType="VARCHAR"/>
+		<!-- 删除时间 -->
+		<result column="deleteTime" property="deleteTime" jdbcType="TIMESTAMP"/>
+		<!-- 删除人id -->
+		<result column="deleteUserId" property="deleteUserId" jdbcType="VARCHAR"/>
+		<!-- 最后一次更新时间 -->
+		<result column="updateLastTime" property="updateLastTime" jdbcType="TIMESTAMP"/>
+		<!-- 创建时间 -->
+		<result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+		<!-- 是否被删除（0表示为删除，1表示已删除） -->
+		<result column="isDeleted" property="isDeleted" jdbcType="INTEGER"/>
+		<!-- 交易金额 -->
+		<result column="payAmount" property="payAmount" jdbcType="DOUBLE"/>
+		<!-- 收货地址 -->
+		<result column="address" property="address" jdbcType="VARCHAR"/>
+		<!-- 备注 -->
+		<result column="comment" property="comment" jdbcType="VARCHAR"/>
+		<!-- 交易数量 -->
+		<result column="count" property="count" jdbcType="INTEGER"/>
+		<!-- 交易状态 -->
+		<result column="status" property="status" jdbcType="VARCHAR"/>
+	</resultMap>
+	<!-- 条件查询 -->
+	<select id="search" parameterType="com.example.demo.model.GoodOrder" resultType="com.example.demo.model.GoodOrder">SELECT * FROM goodOrder t 
+		<trim prefix="where " suffixOverrides="and"> 
+			<if test="id != null">id=#{id} and</if>  
+			<if test="goodsName != null">goodsName=#{goodsName} and</if>  
+			<if test="deleteTime != null">deleteTime=#{deleteTime} and</if>  
+			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>  
+			<if test="createTime != null">createTime=#{createTime} and</if>  
+			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if>  
+			<if test="payAmount != null">payAmount=#{payAmount} and</if>  
+			<if test="address != null">address=#{address} and</if>  
+			<if test="comment != null">comment=#{comment} and</if>  
+			<if test="count != null">count=#{count} and</if>  
+			<if test="status != null">status=#{status} and</if> 
+		</trim> 
+	</select>
+	<!-- 添加一个对象 -->
+	<insert id="addOne" parameterType="com.example.demo.model.GoodOrder">INSERT INTO goodOrder ( id , goodsName , deleteTime , deleteUserId , updateLastTime , createTime , isDeleted , payAmount , address , comment , count , status ) VALUES ( #{id} , #{goodsName} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} , #{createTime} , #{isDeleted} , #{payAmount} , #{address} , #{comment} , #{count} , #{status} )</insert>
+	<!-- 修改不为null的字段 -->
+	<update id="update" parameterType="com.example.demo.model.GoodOrder">UPDATE goodOrder 
+		<set> 
+			<if test="id != null">id=#{id},</if>  
+			<if test="goodsName != null">goodsName=#{goodsName},</if>  
+			<if test="deleteTime != null">deleteTime=#{deleteTime},</if>  
+			<if test="deleteUserId != null">deleteUserId=#{deleteUserId},</if>  
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime},</if>  
+			<if test="createTime != null">createTime=#{createTime},</if>  
+			<if test="isDeleted != null">isDeleted=#{isDeleted},</if>  
+			<if test="payAmount != null">payAmount=#{payAmount},</if>  
+			<if test="address != null">address=#{address},</if>  
+			<if test="comment != null">comment=#{comment},</if>  
+			<if test="count != null">count=#{count},</if>  
+			<if test="status != null">status=#{status},</if> 
+		</set> WHERE id = #{id}
+	</update>
+	<!-- 根据id获取一个对象 -->
+	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.GoodOrder">SELECT * FROM goodOrder t WHERE id = #{id} 
+		<if test="isDeleted != null">and isDeleted=#{isDeleted}</if> 
+	</select>
+	<!-- 根据条件 逻辑删除对象 -->
+	<update id="delete" parameterType="com.example.demo.model.GoodOrder">update goodOrder set isDeleted = 1 
+		<trim> 
+			<if test="deleteTime != null">, deleteTime=#{deleteTime}</if>  
+			<if test="deleteUserId != null">, deleteUserId=#{deleteUserId}</if> 
+		</trim> where id=#{id}
+	</update>
+</mapper>

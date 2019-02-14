@@ -11,6 +11,7 @@ public enum HttpCode {
 	,LOGIN_FAIL(10503,"登陆失败")
 	,NAME_REGISTERED(10504,"名称或账号已经被注册")
 	,ACCESS_DENY(10401,"没有访问权限")
+	,REQUEST_METHOD_WRONG(10402,"请求方式错误可能是get或者post请求")
 	;
 
 	private String msg;

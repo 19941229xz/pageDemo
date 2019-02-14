@@ -10,25 +10,20 @@ import lombok.Data;
 /**
  * 
  * @author xiongzh
- * @comment 菜单 对应数据表 menu
+ * @comment 订单 对应数据表 goodOrder
  */
-@ApiModel(value="menu",description="菜单")
+@ApiModel(value="goodOrder",description="订单")
 @Data
-public class Menu {
+public class GoodOrder {
 	
         
     @ApiModelProperty(value="主键",name="id")
         private String id; // 主键
     	
         
-    @ApiModelProperty(value="菜单名称@Name",name="menuName")
-    @NotEmpty(message="菜单名称@Name不能为空")
-	    private String menuName; // 菜单名称@Name
-    	
-        
-    @ApiModelProperty(value="菜单的地址或路由",name="url")
-    @NotEmpty(message="菜单的地址或路由不能为空")
-	    private String url; // 菜单的地址或路由
+    @ApiModelProperty(value="商品名称",name="goodsName")
+    @NotEmpty(message="商品名称不能为空")
+	    private String goodsName; // 商品名称
     	
         
     @ApiModelProperty(value="删除时间",name="deleteTime",hidden=true)
@@ -49,6 +44,30 @@ public class Menu {
         
     @ApiModelProperty(value="是否被删除（0表示为删除，1表示已删除）",name="isDeleted",hidden=true)
         private Integer isDeleted; // 是否被删除（0表示为删除，1表示已删除）
+    	
+        
+    @ApiModelProperty(value="交易金额",name="payAmount")
+    @NotEmpty(message="交易金额不能为空")
+	    private Double payAmount; // 交易金额
+    	
+        
+    @ApiModelProperty(value="收货地址",name="address")
+    @NotEmpty(message="收货地址不能为空")
+	    private String address; // 收货地址
+    	
+        
+    @ApiModelProperty(value="备注",name="comment")
+        private String comment; // 备注
+    	
+        
+    @ApiModelProperty(value="交易数量",name="count")
+    @NotEmpty(message="交易数量不能为空")
+	    private Integer count; // 交易数量
+    	
+        
+    @ApiModelProperty(value="交易状态",name="status")
+    @NotEmpty(message="交易状态不能为空")
+	    private String status; // 交易状态
     
 
 }

@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.Date;
 import javax.validation.constraints.NotEmpty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,9 +21,9 @@ public class Email {
         private String id; // 主键
     	
         
-    @ApiModelProperty(value="邮箱地址",name="emailAddress")
-    @NotEmpty(message="邮箱地址不能为空")
-	    private String emailAddress; // 邮箱地址
+    @ApiModelProperty(value="邮箱地址@Name",name="emailAddress")
+    @NotEmpty(message="邮箱地址@Name不能为空")
+	    private String emailAddress; // 邮箱地址@Name
     	
         
     @ApiModelProperty(value="邮箱密码",name="password")

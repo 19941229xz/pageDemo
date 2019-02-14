@@ -10,25 +10,25 @@ import lombok.Data;
 /**
  * 
  * @author xiongzh
- * @comment 菜单 对应数据表 menu
+ * @comment 商品 对应数据表 good
  */
-@ApiModel(value="menu",description="菜单")
+@ApiModel(value="good",description="商品")
 @Data
-public class Menu {
+public class Good {
 	
         
     @ApiModelProperty(value="主键",name="id")
         private String id; // 主键
     	
         
-    @ApiModelProperty(value="菜单名称@Name",name="menuName")
-    @NotEmpty(message="菜单名称@Name不能为空")
-	    private String menuName; // 菜单名称@Name
+    @ApiModelProperty(value="商品名称",name="goodsName")
+    @NotEmpty(message="商品名称不能为空")
+	    private String goodsName; // 商品名称
     	
         
-    @ApiModelProperty(value="菜单的地址或路由",name="url")
-    @NotEmpty(message="菜单的地址或路由不能为空")
-	    private String url; // 菜单的地址或路由
+    @ApiModelProperty(value="商品价格",name="goodsPrice")
+    @NotEmpty(message="商品价格不能为空")
+	    private Double goodsPrice; // 商品价格
     	
         
     @ApiModelProperty(value="删除时间",name="deleteTime",hidden=true)

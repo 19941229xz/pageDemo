@@ -2,6 +2,7 @@ package com.example.demo.common;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.UnauthorizedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -45,6 +46,13 @@ public class ExceptionHandle {
         	String msg=exception.getMessage();
         	log.info("【没有访问权限】{}", e.getMessage());
         	return error(new HttpException(HttpCode.ACCESS_DENY));
+        	
+        	
+        }else if(e instanceof HttpRequestMethodNotSupportedException){
+        	HttpRequestMethodNotSupportedException exception = (HttpRequestMethodNotSupportedException) e;
+        	String msg=exception.getMessage();
+        	log.info("【请求方式错误】{}", e.getMessage());
+        	return error(new HttpException(HttpCode.REQUEST_METHOD_WRONG));
         	
         	
         }else {

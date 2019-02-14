@@ -21,9 +21,9 @@ public class Role {
         private String id; // 主键
     	
         
-    @ApiModelProperty(value="角色名称",name="roleName")
-    @NotEmpty(message="角色名称不能为空")
-	    private String roleName; // 角色名称
+    @ApiModelProperty(value="角色名称@Name",name="roleName")
+    @NotEmpty(message="角色名称@Name不能为空")
+	    private String roleName; // 角色名称@Name
     	
         
     @ApiModelProperty(value="角色英文标志",name="roleSign")

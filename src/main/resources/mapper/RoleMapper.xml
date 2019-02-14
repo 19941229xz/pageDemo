@@ -5,7 +5,7 @@
 	<resultMap id="queryResultMap" type="com.example.demo.model.Role">
 		<!-- 主键 -->
 		<result column="id" property="id" jdbcType="VARCHAR"/>
-		<!-- 角色名称 -->
+		<!-- 角色名称@Name -->
 		<result column="roleName" property="roleName" jdbcType="VARCHAR"/>
 		<!-- 角色英文标志 -->
 		<result column="roleSign" property="roleSign" jdbcType="VARCHAR"/>

@@ -2,8 +2,6 @@ package com.example.demo.controller;
 
 import javax.validation.Valid;
 
-import org.apache.shiro.authz.annotation.Logical;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +34,6 @@ public class RoleController implements BaseController<Role>{
 
     @ApiOperation(value = "添加角色信息",notes = "需要在addParam中添加完整角色信息")
     @PostMapping("/addOne")
-    @RequiresRoles(logical = Logical.OR, value = {"SYS_ADMIN"})
 	@Override
 	public Object addOne(@RequestBody @Valid BaseReqParam<Role> param) {
 		return roleService.addOne((Role)param.getAddParam());
@@ -51,7 +48,6 @@ public class RoleController implements BaseController<Role>{
 
     @ApiOperation(value = "条件逻辑删除角色",notes = "只需要在deleteParam中添加 相关筛选条件")
     @PostMapping("/delete")
-    @RequiresRoles(logical = Logical.OR, value = {"SYS_ADMIN"})
 	@Override
 	public Object delete(@RequestBody BaseReqParam<Role> param) {
 		return roleService.delete((Role)param.getDeleteParam());
@@ -59,7 +55,6 @@ public class RoleController implements BaseController<Role>{
 
     @ApiOperation(value = "条件修改角色",notes = "只需要在updateParam中添加")
     @PostMapping("/update")
-    @RequiresRoles(logical = Logical.OR, value = {"SYS_ADMIN"})
 	@Override
 	public Object update(@RequestBody BaseReqParam<Role> param) {
 		return roleService.update((Role)param.getUpdateParam());
