@@ -1,7 +1,9 @@
 package com.example.demo.common.auth;
 
 
+import com.example.demo.service.RoleService;
 import com.example.demo.service.UserService;
+import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import com.example.demo.common.HttpCode;
 import com.example.demo.common.HttpException;
@@ -35,6 +37,9 @@ public class Realm extends AuthorizingRealm {
     private UserService userService;
     
     @Autowired
+    private RoleService roleService;
+    
+    @Autowired
     private JwtService JwtUtil;
  
  
@@ -48,6 +53,8 @@ public class Realm extends AuthorizingRealm {
  
     /**
      * 只有当需要检测用户权限的时候才会调用此方法，例如checkRole,checkPermission之类的
+     * 在相应的controller接口上 加上此注解  @RequiresRoles(logical = Logical.OR, value = {"user", "admin"})
+     * 即可实现权限拦截
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -64,9 +71,15 @@ public class Realm extends AuthorizingRealm {
         
         //获得该用户角色
         String roleId = userRes.getRoleId();
+        //通过roleid 获取role sign
+        Role roleCondition=new Role();
+        roleCondition.setId(roleId);
+        Role roleRes=roleService.getOne(roleCondition);
+        String roleSign=roleRes.getRoleSign();
+        
         Set<String> roleSet = new HashSet<>();
         //需要将 role, permission 封装到 Set 作为 info.setRoles(), info.setStringPermissions() 的参数
-        roleSet.add(roleId);
+        roleSet.add(roleSign);
         //设置该用户拥有的角色和权限
         simpleAuthorizationInfo.setRoles(roleSet);
         

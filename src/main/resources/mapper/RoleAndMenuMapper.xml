@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.demo.dao.MenuMapper">
-	<resultMap id="queryResultMap" type="com.example.demo.model.Menu">
-		<!-- 主键 -->
-		<result column="id" property="id" jdbcType="VARCHAR"/>
-		<!-- 菜单名称@Name -->
-		<result column="menuName" property="menuName" jdbcType="VARCHAR"/>
-		<!-- 菜单的地址或路由 -->
-		<result column="url" property="url" jdbcType="VARCHAR"/>
-		<!-- 菜单父节点，上级菜单，没有上级默认父节点为root -->
-		<result column="superNode" property="superNode" jdbcType="VARCHAR"/>
+<mapper namespace="com.example.demo.dao.RoleAndMenuMapper">
+	<resultMap id="queryResultMap" type="com.example.demo.model.RoleAndMenu">
+		<!-- 角色id -->
+		<result column="roleId" property="roleId" jdbcType="VARCHAR"/>
+		<!-- 菜单id -->
+		<result column="menuId" property="menuId" jdbcType="VARCHAR"/>
 		<!-- 删除时间 -->
 		<result column="deleteTime" property="deleteTime" jdbcType="TIMESTAMP"/>
 		<!-- 删除人id -->
@@ -23,12 +19,10 @@
 		<result column="isDeleted" property="isDeleted" jdbcType="INTEGER"/>
 	</resultMap>
 	<!-- 条件查询 -->
-	<select id="search" parameterType="com.example.demo.model.Menu" resultType="com.example.demo.model.Menu">SELECT * FROM menu t 
+	<select id="search" parameterType="com.example.demo.model.RoleAndMenu" resultType="com.example.demo.model.RoleAndMenu">SELECT * FROM roleAndMenu t 
 		<trim prefix="where " suffixOverrides="and"> 
-			<if test="id != null">id=#{id} and</if>  
-			<if test="menuName != null">menuName=#{menuName} and</if>  
-			<if test="url != null">url=#{url} and</if>  
-			<if test="superNode != null">superNode=#{superNode} and</if>  
+			<if test="roleId != null">roleId=#{roleId} and</if>  
+			<if test="menuId != null">menuId=#{menuId} and</if>  
 			<if test="deleteTime != null">deleteTime=#{deleteTime} and</if>  
 			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
 			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>  
@@ -37,27 +31,25 @@
 		</trim> 
 	</select>
 	<!-- 添加一个对象 -->
-	<insert id="addOne" parameterType="com.example.demo.model.Menu">INSERT INTO menu ( id , menuName , url , superNode , deleteTime , deleteUserId , updateLastTime , createTime , isDeleted ) VALUES ( #{id} , #{menuName} , #{url} , #{superNode} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} , #{createTime} , #{isDeleted} )</insert>
+	<insert id="addOne" parameterType="com.example.demo.model.RoleAndMenu">INSERT INTO roleAndMenu ( roleId , menuId , deleteTime , deleteUserId , updateLastTime , createTime , isDeleted ) VALUES ( #{roleId} , #{menuId} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} , #{createTime} , #{isDeleted} )</insert>
 	<!-- 修改不为null的字段 -->
-	<update id="update" parameterType="com.example.demo.model.Menu">UPDATE menu 
+	<update id="update" parameterType="com.example.demo.model.RoleAndMenu">UPDATE roleAndMenu 
 		<set> 
-			<if test="id != null">id=#{id},</if>  
-			<if test="menuName != null">menuName=#{menuName},</if>  
-			<if test="url != null">url=#{url},</if>  
-			<if test="superNode != null">superNode=#{superNode},</if>  
+			<if test="roleId != null">roleId=#{roleId},</if>  
+			<if test="menuId != null">menuId=#{menuId},</if>  
 			<if test="deleteTime != null">deleteTime=#{deleteTime},</if>  
 			<if test="deleteUserId != null">deleteUserId=#{deleteUserId},</if>  
 			<if test="updateLastTime != null">updateLastTime=#{updateLastTime},</if>  
 			<if test="createTime != null">createTime=#{createTime},</if>  
 			<if test="isDeleted != null">isDeleted=#{isDeleted},</if> 
-		</set> WHERE id = #{id}
+		</set> WHERE = #{}
 	</update>
 	<!-- 根据id获取一个对象 -->
-	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.Menu">SELECT * FROM menu t WHERE id = #{id} 
+	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.RoleAndMenu">SELECT * FROM roleAndMenu t WHERE = #{} 
 		<if test="isDeleted != null">and isDeleted=#{isDeleted}</if> 
 	</select>
 	<!-- 根据条件 逻辑删除对象 -->
-	<update id="delete" parameterType="com.example.demo.model.Menu">update menu set isDeleted = 1 
+	<update id="delete" parameterType="com.example.demo.model.RoleAndMenu">update roleAndMenu set isDeleted = 1 
 		<trim> 
 			<if test="deleteTime != null">, deleteTime=#{deleteTime}</if>  
 			<if test="deleteUserId != null">, deleteUserId=#{deleteUserId}</if> 

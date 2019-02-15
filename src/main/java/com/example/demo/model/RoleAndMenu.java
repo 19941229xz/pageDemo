@@ -10,29 +10,21 @@ import lombok.Data;
 /**
  * 
  * @author xiongzh
- * @comment 菜单 对应数据表 menu
+ * @comment 角色对应的权限 对应数据表 roleAndMenu
  */
-@ApiModel(value="menu",description="菜单")
+@ApiModel(value="roleAndMenu",description="角色对应的权限")
 @Data
-public class Menu {
+public class RoleAndMenu {
 	
         
-    @ApiModelProperty(value="主键",name="id")
-        private String id; // 主键
+    @ApiModelProperty(value="角色id",name="roleId")
+    @NotEmpty(message="角色id不能为空")
+	    private String roleId; // 角色id
     	
         
-    @ApiModelProperty(value="菜单名称@Name",name="menuName")
-    @NotEmpty(message="菜单名称@Name不能为空")
-	    private String menuName; // 菜单名称@Name
-    	
-        
-    @ApiModelProperty(value="菜单的地址或路由",name="url")
-    @NotEmpty(message="菜单的地址或路由不能为空")
-	    private String url; // 菜单的地址或路由
-    	
-        
-    @ApiModelProperty(value="菜单父节点，上级菜单，没有上级默认父节点为root",name="superNode")
-        private String superNode; // 菜单父节点，上级菜单，没有上级默认父节点为root
+    @ApiModelProperty(value="菜单id",name="menuId")
+    @NotEmpty(message="菜单id不能为空")
+	    private String menuId; // 菜单id
     	
         
     @ApiModelProperty(value="删除时间",name="deleteTime",hidden=true)
