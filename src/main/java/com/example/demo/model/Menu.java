@@ -32,7 +32,8 @@ public class Menu {
     	
         
     @ApiModelProperty(value="菜单父节点，上级菜单，没有上级默认父节点为root",name="superNode")
-        private String superNode; // 菜单父节点，上级菜单，没有上级默认父节点为root
+    @NotEmpty(message="菜单父节点，上级菜单，没有上级默认父节点为root不能为空")
+	    private String superNode; // 菜单父节点，上级菜单，没有上级默认父节点为root
     	
         
     @ApiModelProperty(value="删除时间",name="deleteTime",hidden=true)
