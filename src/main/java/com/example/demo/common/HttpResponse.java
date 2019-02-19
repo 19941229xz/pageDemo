@@ -25,6 +25,14 @@ public class HttpResponse {
 		return rsp;
 	}
 	
+	public static HttpResponse fail(HttpException e,Object content){
+		HttpResponse rsp=new HttpResponse();
+		rsp.setCode(e.getCode());
+		rsp.setMsg(e.getMsg());
+		rsp.setContent(content);
+		return rsp;
+	}
+	
 	public static HttpResponse unknowError(){
 		HttpResponse rsp=new HttpResponse();
 		rsp.setCode(HttpCode.UNKNOW_ERROR.getCode());

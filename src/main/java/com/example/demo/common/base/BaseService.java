@@ -14,7 +14,7 @@ public interface BaseService<T> {
 	 */
 	Object searchWithPage(BaseReqParam<T> param);
 	/**
-	 * 普通查询
+	 * 普通条件查询 没有作分页
 	 */
 	List<T> search(T searchParam);
 	/**

@@ -10,8 +10,10 @@ public enum HttpCode {
 	,AUTH_FAIL(10502,"认证失败")
 	,LOGIN_FAIL(10503,"登陆失败")
 	,NAME_REGISTERED(10504,"名称或账号已经被注册")
+	,NO_RELATED_TO_MAIN_ACCOUNT(10505,"该微信账号openid未关联系统主账号")
 	,ACCESS_DENY(10401,"没有访问权限")
 	,REQUEST_METHOD_WRONG(10402,"请求方式错误可能是get或者post请求")
+	,DIRTY_DATA_IN_DB(10300,"访问失败数据库中存在脏数据")
 	;
 
 	private String msg;

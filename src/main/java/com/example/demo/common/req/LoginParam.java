@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(value="登陆参数",description="登陆参数")
+@ApiModel(value="普通用户登陆参数",description="普通用户登陆参数")
 public class LoginParam {
 
 	/**
