@@ -32,20 +32,17 @@
 	</select>
 	<!-- 添加一个对象 -->
 	<insert id="addOne" parameterType="com.example.demo.model.RoleAndMenu">INSERT INTO roleAndMenu ( roleId , menuId , deleteTime , deleteUserId , updateLastTime , createTime , isDeleted ) VALUES ( #{roleId} , #{menuId} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} , #{createTime} , #{isDeleted} )</insert>
-	<!-- 修改不为null的字段 -->
-	<update id="update" parameterType="com.example.demo.model.RoleAndMenu">UPDATE roleAndMenu 
-		<set> 
-			<if test="roleId != null">roleId=#{roleId},</if>  
-			<if test="menuId != null">menuId=#{menuId},</if>  
-			<if test="deleteTime != null">deleteTime=#{deleteTime},</if>  
-			<if test="deleteUserId != null">deleteUserId=#{deleteUserId},</if>  
-			<if test="updateLastTime != null">updateLastTime=#{updateLastTime},</if>  
-			<if test="createTime != null">createTime=#{createTime},</if>  
-			<if test="isDeleted != null">isDeleted=#{isDeleted},</if> 
-		</set> WHERE = #{}
-	</update>
 	<!-- 根据id获取一个对象 -->
-	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.RoleAndMenu">SELECT * FROM roleAndMenu t WHERE = #{} 
+	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.RoleAndMenu">SELECT * FROM roleAndMenu t WHERE 
+		<trim prefix=" " suffixOverrides="and"> 
+			<if test="roleId != null">roleId=#{roleId} and</if>  
+			<if test="menuId != null">menuId=#{menuId} and</if>  
+			<if test="deleteTime != null">deleteTime=#{deleteTime} and</if>  
+			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>  
+			<if test="createTime != null">createTime=#{createTime} and</if>  
+			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if> 
+		</trim>  
 		<if test="isDeleted != null">and isDeleted=#{isDeleted}</if> 
 	</select>
 	<!-- 根据条件 逻辑删除对象 -->
@@ -53,6 +50,15 @@
 		<trim> 
 			<if test="deleteTime != null">, deleteTime=#{deleteTime}</if>  
 			<if test="deleteUserId != null">, deleteUserId=#{deleteUserId}</if> 
-		</trim> where id=#{id}
+		</trim> where 
+		<trim prefix=" " suffixOverrides="and"> 
+			<if test="roleId != null">roleId=#{roleId} and</if>  
+			<if test="menuId != null">menuId=#{menuId} and</if>  
+			<if test="deleteTime != null">deleteTime=#{deleteTime} and</if>  
+			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>  
+			<if test="createTime != null">createTime=#{createTime} and</if>  
+			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if> 
+		</trim> 
 	</update>
 </mapper>

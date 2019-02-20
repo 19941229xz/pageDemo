@@ -53,7 +53,7 @@ public class RoleAndMenuController implements BaseController<RoleAndMenu>{
 		return roleAndMenuService.delete((RoleAndMenu)param.getDeleteParam());
 	}
 
-    @ApiOperation(value = "条件修改角色对应的权限",notes = "只需要在updateParam中添加")
+    @ApiOperation(value = "条件修改角色对应的权限",notes = "  角色对应的权限不支持update接口 ")
     @PostMapping("/update")
 	@Override
 	public Object update(@RequestBody BaseReqParam<RoleAndMenu> param) {

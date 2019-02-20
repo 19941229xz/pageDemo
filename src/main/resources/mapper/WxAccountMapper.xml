@@ -35,21 +35,18 @@
 	</select>
 	<!-- 添加一个对象 -->
 	<insert id="addOne" parameterType="com.example.demo.model.WxAccount">INSERT INTO wxAccount ( openid , appid , userId , deleteTime , deleteUserId , updateLastTime , createTime , isDeleted ) VALUES ( #{openid} , #{appid} , #{userId} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} , #{createTime} , #{isDeleted} )</insert>
-	<!-- 修改不为null的字段 -->
-	<update id="update" parameterType="com.example.demo.model.WxAccount">UPDATE wxAccount 
-		<set> 
-			<if test="openid != null">openid=#{openid},</if>  
-			<if test="appid != null">appid=#{appid},</if>  
-			<if test="userId != null">userId=#{userId},</if>  
-			<if test="deleteTime != null">deleteTime=#{deleteTime},</if>  
-			<if test="deleteUserId != null">deleteUserId=#{deleteUserId},</if>  
-			<if test="updateLastTime != null">updateLastTime=#{updateLastTime},</if>  
-			<if test="createTime != null">createTime=#{createTime},</if>  
-			<if test="isDeleted != null">isDeleted=#{isDeleted},</if> 
-		</set> WHERE = #{}
-	</update>
 	<!-- 根据id获取一个对象 -->
-	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.WxAccount">SELECT * FROM wxAccount t WHERE = #{} 
+	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.WxAccount">SELECT * FROM wxAccount t WHERE 
+		<trim prefix=" " suffixOverrides="and"> 
+			<if test="openid != null">openid=#{openid} and</if>  
+			<if test="appid != null">appid=#{appid} and</if>  
+			<if test="userId != null">userId=#{userId} and</if>  
+			<if test="deleteTime != null">deleteTime=#{deleteTime} and</if>  
+			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>  
+			<if test="createTime != null">createTime=#{createTime} and</if>  
+			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if> 
+		</trim>  
 		<if test="isDeleted != null">and isDeleted=#{isDeleted}</if> 
 	</select>
 	<!-- 根据条件 逻辑删除对象 -->
@@ -57,6 +54,16 @@
 		<trim> 
 			<if test="deleteTime != null">, deleteTime=#{deleteTime}</if>  
 			<if test="deleteUserId != null">, deleteUserId=#{deleteUserId}</if> 
-		</trim> where id=#{id}
+		</trim> where 
+		<trim prefix=" " suffixOverrides="and"> 
+			<if test="openid != null">openid=#{openid} and</if>  
+			<if test="appid != null">appid=#{appid} and</if>  
+			<if test="userId != null">userId=#{userId} and</if>  
+			<if test="deleteTime != null">deleteTime=#{deleteTime} and</if>  
+			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>  
+			<if test="createTime != null">createTime=#{createTime} and</if>  
+			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if> 
+		</trim> 
 	</update>
 </mapper>

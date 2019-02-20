@@ -53,7 +53,7 @@ public class WxAccountController implements BaseController<WxAccount>{
 		return wxAccountService.delete((WxAccount)param.getDeleteParam());
 	}
 
-    @ApiOperation(value = "条件修改微信账号",notes = "只需要在updateParam中添加")
+    @ApiOperation(value = "条件修改微信账号",notes = "  微信账号不支持update接口 ")
     @PostMapping("/update")
 	@Override
 	public Object update(@RequestBody BaseReqParam<WxAccount> param) {

@@ -78,7 +78,7 @@ public class JwtService {
     /**
      * 根据token中的username 获取完整用户信息
      *
-     * @return token中包含的用户名
+     * @return 
      */
     public User getUserInfo() {
       RequestAttributes ra = RequestContextHolder.getRequestAttributes();
