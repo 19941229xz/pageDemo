@@ -39,7 +39,7 @@ public class GameController {
 		
 		GameController.gameUserList.add(gu);
 		
-		return HttpResponse.success(gu.getStuId());
+		return HttpResponse.success(gu);
 		
 		
 	}
