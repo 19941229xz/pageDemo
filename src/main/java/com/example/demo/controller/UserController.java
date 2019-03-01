@@ -53,7 +53,7 @@ public class UserController implements BaseController<User>{
 		return userService.delete((User)param.getDeleteParam());
 	}
 
-    @ApiOperation(value = "条件修改用户",notes = "只需要在updateParam中添加")
+    @ApiOperation(value = "条件修改用户",notes = "只需要在updateParam中添加 ")
     @PostMapping("/update")
 	@Override
 	public Object update(@RequestBody BaseReqParam<User> param) {

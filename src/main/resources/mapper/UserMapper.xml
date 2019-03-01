@@ -25,6 +25,14 @@
 		<result column="deleteUserId" property="deleteUserId" jdbcType="VARCHAR"/>
 		<!-- 最后一次更新时间 -->
 		<result column="updateLastTime" property="updateLastTime" jdbcType="TIMESTAMP"/>
+		<!-- QQ号 -->
+		<result column="qq" property="qq" jdbcType="VARCHAR"/>
+		<!-- 微信号 -->
+		<result column="wechat" property="wechat" jdbcType="VARCHAR"/>
+		<!-- 性别 -->
+		<result column="sex" property="sex" jdbcType="VARCHAR"/>
+		<!-- 学号 -->
+		<result column="studentId" property="studentId" jdbcType="VARCHAR"/>
 	</resultMap>
 	<!-- 条件查询 -->
 	<select id="search" parameterType="com.example.demo.model.User" resultType="com.example.demo.model.User">SELECT * FROM user t 
@@ -39,11 +47,15 @@
 			<if test="roleId != null">roleId=#{roleId} and</if>  
 			<if test="deleteTime != null">deleteTime=#{deleteTime} and</if>  
 			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
-			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if> 
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>  
+			<if test="qq != null">qq=#{qq} and</if>  
+			<if test="wechat != null">wechat=#{wechat} and</if>  
+			<if test="sex != null">sex=#{sex} and</if>  
+			<if test="studentId != null">studentId=#{studentId} and</if> 
 		</trim> 
 	</select>
 	<!-- 添加一个对象 -->
-	<insert id="addOne" parameterType="com.example.demo.model.User">INSERT INTO user ( id , username , password , createTime , isDeleted , realName , phone , roleId , deleteTime , deleteUserId , updateLastTime ) VALUES ( #{id} , #{username} , #{password} , #{createTime} , #{isDeleted} , #{realName} , #{phone} , #{roleId} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} )</insert>
+	<insert id="addOne" parameterType="com.example.demo.model.User">INSERT INTO user ( id , username , password , createTime , isDeleted , realName , phone , roleId , deleteTime , deleteUserId , updateLastTime , qq , wechat , sex , studentId ) VALUES ( #{id} , #{username} , #{password} , #{createTime} , #{isDeleted} , #{realName} , #{phone} , #{roleId} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} , #{qq} , #{wechat} , #{sex} , #{studentId} )</insert>
 	<!-- 修改不为null的字段 -->
 	<update id="update" parameterType="com.example.demo.model.User">UPDATE user 
 		<set> 
@@ -57,7 +69,11 @@
 			<if test="roleId != null">roleId=#{roleId},</if>  
 			<if test="deleteTime != null">deleteTime=#{deleteTime},</if>  
 			<if test="deleteUserId != null">deleteUserId=#{deleteUserId},</if>  
-			<if test="updateLastTime != null">updateLastTime=#{updateLastTime},</if> 
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime},</if>  
+			<if test="qq != null">qq=#{qq},</if>  
+			<if test="wechat != null">wechat=#{wechat},</if>  
+			<if test="sex != null">sex=#{sex},</if>  
+			<if test="studentId != null">studentId=#{studentId},</if> 
 		</set> WHERE id = #{id}
 	</update>
 	<!-- 根据id获取一个对象 -->

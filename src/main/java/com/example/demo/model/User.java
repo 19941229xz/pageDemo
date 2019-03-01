@@ -64,6 +64,22 @@ public class User {
         
     @ApiModelProperty(value="最后一次更新时间",name="updateLastTime",hidden=true)
         private Date updateLastTime; // 最后一次更新时间
+    	
+        
+    @ApiModelProperty(value="QQ号",name="qq")
+        private String qq; // QQ号
+    	
+        
+    @ApiModelProperty(value="微信号",name="wechat")
+        private String wechat; // 微信号
+    	
+        
+    @ApiModelProperty(value="性别",name="sex")
+        private String sex; // 性别
+    	
+        
+    @ApiModelProperty(value="学号",name="studentId")
+        private String studentId; // 学号
     
 
 }

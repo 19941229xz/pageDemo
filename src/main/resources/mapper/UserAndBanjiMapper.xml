@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.UserAndBanjiMapper">
+	<resultMap id="queryResultMap" type="com.example.demo.model.UserAndBanji">
+		<!-- 用户（老师或者学生）id -->
+		<result column="userId" property="userId" jdbcType="VARCHAR"/>
+		<!-- 班级id -->
+		<result column="banjiId" property="banjiId" jdbcType="VARCHAR"/>
+		<!-- 删除时间 -->
+		<result column="deleteTime" property="deleteTime" jdbcType="TIMESTAMP"/>
+		<!-- 删除人id -->
+		<result column="deleteUserId" property="deleteUserId" jdbcType="VARCHAR"/>
+		<!-- 最后一次更新时间 -->
+		<result column="updateLastTime" property="updateLastTime" jdbcType="TIMESTAMP"/>
+		<!-- 创建时间 -->
+		<result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+		<!-- 是否被删除（0表示为删除，1表示已删除） -->
+		<result column="isDeleted" property="isDeleted" jdbcType="INTEGER"/>
+	</resultMap>
+	<!-- 条件查询 -->
+	<select id="search" parameterType="com.example.demo.model.UserAndBanji" resultType="com.example.demo.model.UserAndBanji">SELECT * FROM userAndBanji t 
+		<trim prefix="where " suffixOverrides="and"> 
+			<if test="userId != null">userId=#{userId} and</if>  
+			<if test="banjiId != null">banjiId=#{banjiId} and</if>  
+			<if test="deleteTime != null">deleteTime=#{deleteTime} and</if>  
+			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>  
+			<if test="createTime != null">createTime=#{createTime} and</if>  
+			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if> 
+		</trim> 
+	</select>
+	<!-- 添加一个对象 -->
+	<insert id="addOne" parameterType="com.example.demo.model.UserAndBanji">INSERT INTO userAndBanji ( userId , banjiId , deleteTime , deleteUserId , updateLastTime , createTime , isDeleted ) VALUES ( #{userId} , #{banjiId} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} , #{createTime} , #{isDeleted} )</insert>
+	<!-- 根据id获取一个对象 -->
+	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.UserAndBanji">SELECT * FROM userAndBanji t WHERE 
+		<trim prefix=" " suffixOverrides="and"> 
+			<if test="userId != null">userId=#{userId} and</if>  
+			<if test="banjiId != null">banjiId=#{banjiId} and</if>  
+			<if test="deleteTime != null">deleteTime=#{deleteTime} and</if>  
+			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>  
+			<if test="createTime != null">createTime=#{createTime} and</if>  
+			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if> 
+		</trim>  
+		<if test="isDeleted != null">and isDeleted=#{isDeleted}</if> 
+	</select>
+	<!-- 根据条件 逻辑删除对象 -->
+	<update id="delete" parameterType="com.example.demo.model.UserAndBanji">update userAndBanji set isDeleted = 1 
+		<trim> 
+			<if test="deleteTime != null">, deleteTime=#{deleteTime}</if>  
+			<if test="deleteUserId != null">, deleteUserId=#{deleteUserId}</if> 
+		</trim> where 
+		<trim prefix=" " suffixOverrides="and"> 
+			<if test="userId != null">userId=#{userId} and</if>  
+			<if test="banjiId != null">banjiId=#{banjiId} and</if>  
+			<if test="deleteTime != null">deleteTime=#{deleteTime} and</if>  
+			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>  
+			<if test="createTime != null">createTime=#{createTime} and</if>  
+			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if> 
+		</trim> 
+	</update>
+</mapper>

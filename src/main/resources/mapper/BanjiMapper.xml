@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.BanjiMapper">
+	<resultMap id="queryResultMap" type="com.example.demo.model.Banji">
+		<!-- 主键 -->
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<!-- 班级名称@Name -->
+		<result column="banjiName" property="banjiName" jdbcType="VARCHAR"/>
+		<!-- 所属大学id -->
+		<result column="collegeId" property="collegeId" jdbcType="VARCHAR"/>
+		<!-- 进班邀请码 -->
+		<result column="activeCode" property="activeCode" jdbcType="VARCHAR"/>
+		<!-- 班级描述 -->
+		<result column="commet" property="commet" jdbcType="VARCHAR"/>
+		<!-- 删除时间 -->
+		<result column="deleteTime" property="deleteTime" jdbcType="TIMESTAMP"/>
+		<!-- 删除人id -->
+		<result column="deleteUserId" property="deleteUserId" jdbcType="VARCHAR"/>
+		<!-- 最后一次更新时间 -->
+		<result column="updateLastTime" property="updateLastTime" jdbcType="TIMESTAMP"/>
+		<!-- 创建时间 -->
+		<result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+		<!-- 是否被删除（0表示为删除，1表示已删除） -->
+		<result column="isDeleted" property="isDeleted" jdbcType="INTEGER"/>
+	</resultMap>
+	<!-- 条件查询 -->
+	<select id="search" parameterType="com.example.demo.model.Banji" resultType="com.example.demo.model.Banji">SELECT * FROM banji t 
+		<trim prefix="where " suffixOverrides="and"> 
+			<if test="id != null">id=#{id} and</if>  
+			<if test="banjiName != null">banjiName=#{banjiName} and</if>  
+			<if test="collegeId != null">collegeId=#{collegeId} and</if>  
+			<if test="activeCode != null">activeCode=#{activeCode} and</if>  
+			<if test="commet != null">commet=#{commet} and</if>  
+			<if test="deleteTime != null">deleteTime=#{deleteTime} and</if>  
+			<if test="deleteUserId != null">deleteUserId=#{deleteUserId} and</if>  
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime} and</if>  
+			<if test="createTime != null">createTime=#{createTime} and</if>  
+			<if test="isDeleted != null">isDeleted=#{isDeleted} and</if> 
+		</trim> 
+	</select>
+	<!-- 添加一个对象 -->
+	<insert id="addOne" parameterType="com.example.demo.model.Banji">INSERT INTO banji ( id , banjiName , collegeId , activeCode , commet , deleteTime , deleteUserId , updateLastTime , createTime , isDeleted ) VALUES ( #{id} , #{banjiName} , #{collegeId} , #{activeCode} , #{commet} , #{deleteTime} , #{deleteUserId} , #{updateLastTime} , #{createTime} , #{isDeleted} )</insert>
+	<!-- 修改不为null的字段 -->
+	<update id="update" parameterType="com.example.demo.model.Banji">UPDATE banji 
+		<set> 
+			<if test="id != null">id=#{id},</if>  
+			<if test="banjiName != null">banjiName=#{banjiName},</if>  
+			<if test="collegeId != null">collegeId=#{collegeId},</if>  
+			<if test="activeCode != null">activeCode=#{activeCode},</if>  
+			<if test="commet != null">commet=#{commet},</if>  
+			<if test="deleteTime != null">deleteTime=#{deleteTime},</if>  
+			<if test="deleteUserId != null">deleteUserId=#{deleteUserId},</if>  
+			<if test="updateLastTime != null">updateLastTime=#{updateLastTime},</if>  
+			<if test="createTime != null">createTime=#{createTime},</if>  
+			<if test="isDeleted != null">isDeleted=#{isDeleted},</if> 
+		</set> WHERE id = #{id}
+	</update>
+	<!-- 根据id获取一个对象 -->
+	<select id="getOne" resultMap="queryResultMap" parameterType="com.example.demo.model.Banji">SELECT * FROM banji t WHERE id = #{id} 
+		<if test="isDeleted != null">and isDeleted=#{isDeleted}</if> 
+	</select>
+	<!-- 根据条件 逻辑删除对象 -->
+	<update id="delete" parameterType="com.example.demo.model.Banji">update banji set isDeleted = 1 
+		<trim> 
+			<if test="deleteTime != null">, deleteTime=#{deleteTime}</if>  
+			<if test="deleteUserId != null">, deleteUserId=#{deleteUserId}</if> 
+		</trim> where id=#{id}
+	</update>
+</mapper>
