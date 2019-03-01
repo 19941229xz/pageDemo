@@ -1,7 +1,9 @@
 package com.example.demo.common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -25,6 +27,9 @@ public class GameController {
 	
 	static List<GameUser>  gameUserList=new ArrayList<GameUser>();
 	
+	static int points1705=0;
+	
+	static int points1706=0;
 	
 	@ApiOperation(value = "/login", notes = "玩家注册和登陆")
 	@PostMapping("/login")
@@ -48,11 +53,40 @@ public class GameController {
 	@PostMapping("/watchGameUser")
 	public Object watchGameUser() {
 		
-		 
+		return HttpResponse.success(GameController.gameUserList);
+		
+	}
+	
+	
+	@ApiOperation(value = "/addPoint", notes = "玩家点击一次加一分")
+	@PostMapping("/addPoint")
+	public Object addPoint(GameUser user) {
+		
+		if(user.getBanji().equals("1706")) {
+			GameController.points1706+=1;
+		}else if(user.getBanji().equals("1705")) {
+			GameController.points1705+=1;
+		}else {
+			return HttpResponse.success("班级不存在");
+		}
 		
 		
 		return HttpResponse.success(GameController.gameUserList);
 		
+	}
+	
+	
+	@ApiOperation(value = "/watchPoint", notes = "c查看分数情况")
+	@PostMapping("/watchPoint")
+	public Object watchPoint(GameUser user) {
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+		
+		
+		map.put("points1705", points1705);
+		map.put("points1706", points1706);
+		
+		return HttpResponse.success(map);
 		
 	}
 		
