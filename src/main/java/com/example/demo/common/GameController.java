@@ -48,7 +48,7 @@ public class GameController {
 	@PostMapping("/watchGameUser")
 	public Object watchGameUser() {
 		
-		
+		 
 		
 		
 		return HttpResponse.success(GameController.gameUserList);
