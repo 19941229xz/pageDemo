@@ -71,14 +71,14 @@ public class GameController {
 		}
 		
 		
-		return HttpResponse.success(GameController.gameUserList);
+		return HttpResponse.success("加分成功");
 		
 	}
 	
 	
 	@ApiOperation(value = "/watchPoint", notes = "c查看分数情况")
 	@PostMapping("/watchPoint")
-	public Object watchPoint(GameUser user) {
+	public Object watchPoint() {
 		
 		Map<String,Object> map=new HashMap<String,Object>();
 		
