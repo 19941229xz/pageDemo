@@ -35,7 +35,9 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         // 配置不会被拦截的链接 顺序判断 TODO need fix get it from config
         filterChainDefinitionMap.put("/login/**", "anon");
+        filterChainDefinitionMap.put("/shooter/**", "anon");
         filterChainDefinitionMap.put("/**.js", "anon");
+        filterChainDefinitionMap.put("/**.htm", "anon");
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/swagger**/**", "anon");
         filterChainDefinitionMap.put("/webjars/**", "anon");

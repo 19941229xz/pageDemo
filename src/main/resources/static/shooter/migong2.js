@@ -133,10 +133,11 @@ cnGame.core.inherit(enemy, cnGame.Sprite);
 /*	敌人射击方法	*/
 enemy.prototype.shoot = function(player) {
     var randomNum = Math.floor(Math.random() * 2); //获取随机数
-    if (!randomNum) {//如果随机数是0（1/2机会），则击中玩家
-        player.hurt();
-
-    }
+//    if (!randomNum) {//如果随机数是0（1/2机会），则击中玩家
+//        player.hurt();
+//
+//    }
+    player.hurt();
 
 }
 /*	敌人更新的同时更新屏幕上的敌人对象	*/
