@@ -556,7 +556,7 @@ var gameObj = {
 		addEnemy(160,365,1.5,this.screenContext);
 		addEnemy(210,170,2,this.screenContext);
 		addEnemy(225,205,0.5,this.screenContext);
-		addEnemy(175,25,1.5,this.screenContext);
+		addEnemy(175,25,1.5,this.screenContext); 
 		addEnemy(265,190,0.5,this.screenContext);
 		addEnemy(285,110,0.5,this.screenContext);
 		addEnemy(265,205,1,this.screenContext);
