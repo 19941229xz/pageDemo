@@ -36,6 +36,7 @@ public class ShiroConfig {
         // 配置不会被拦截的链接 顺序判断 TODO need fix get it from config
         filterChainDefinitionMap.put("/login/**", "anon");
         filterChainDefinitionMap.put("/shooter/**", "anon");
+        filterChainDefinitionMap.put("/wenzixiuxian/**", "anon");
         filterChainDefinitionMap.put("/**.js", "anon");
         filterChainDefinitionMap.put("/**.htm", "anon");
         filterChainDefinitionMap.put("/druid/**", "anon");
