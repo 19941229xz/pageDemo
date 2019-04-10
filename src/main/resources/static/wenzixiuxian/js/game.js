@@ -33,12 +33,12 @@
 			document.getElementById(this.containerId).innerHTML = ''
 		},
 		player: {
-			name: '@皮王',
+			name: '盾天老祖',
 			life: 100,
 			ap: 58,
-			protect: 15,
+			protect: 46,
 			IQ: 15,
-			experience: 50,
+			experience: 20,
 			level: 1,
 			coin: 0
 		},
@@ -46,9 +46,9 @@
 			level: 1,
 			name: '[普通敌人]',
 			life: 100,
-			ap: 50,
-			protect: 20,
-			IQ: 10
+			ap: 46,
+			protect: 34,
+			IQ: 12,
 		},
 		showPlayerInfo: function(player) {
 			if(this.isPrinting == true) {
@@ -139,7 +139,10 @@
 			this.print(this.containerId, str, 'normal', null, 100)
 		},
 		calHurtValue: function(ap, pr) { //  计算每次攻击造成的伤害
-			return(ap - pr)
+			if((ap - (Math.floor(pr * 0.3))) <= 0){
+				return 5
+			}
+			return ap - (Math.floor(pr * 0.3))
 		},
 		calExperienceIfWin: function(player, enemy) { // 计算赢了获得多少经验
 			return Math.round((enemy.level / player.level) * 50)
@@ -151,10 +154,10 @@
 
 				this.player.level += levelNum
 				this.player.experience = tempEx - (100 * levelNum)
-				this.player.life = (playerHis.life + levelNum * 20)
-				this.player.ap = (playerHis.ap + levelNum * 1)
-				this.player.IQ = (playerHis.IQ + levelNum * 0.2)
-				this.player.protect = (playerHis.protect + levelNum * 1)
+				this.player.life = (playerHis.life + levelNum * 14)
+				this.player.ap = Math.floor(playerHis.ap + levelNum * 1.2)
+				this.player.IQ = Math.floor(playerHis.IQ + levelNum * 0.2)
+				this.player.protect = Math.floor(playerHis.protect + levelNum * 0.8)
 				return '叼毛你升了' + levelNum + '级！&'
 
 			} else {
@@ -175,36 +178,35 @@
 
 			this.enemy.level = level
 			this.enemy.name = this.randomEnemyName()
-			this.enemy.life = 100 + level * 10,
-				this.enemy.ap = 50 + level * 5,
-				this.enemy.protect = 20 + level * 5,
-				this.enemy.IQ = 10 + level * 0.1
+			this.enemy.life = 100 + level * 12,
+				this.enemy.ap = 50 + level * 2,
+				this.enemy.protect = Math.floor(34 + level * 0.9),
+				this.enemy.IQ = Math.floor(10 + level * 0.3)
 
 		},
 		randomEnemyName: function() { // 随机获取敌人的名字
-			var strs = ['[皮皮怪]', '[托儿索]', '[儿童劫]', '[寒冰射手]'
-			, '[姨妈精]', '[长脸怪]', '[蛇皮怪]', '[棒槌怪]']
+			var strs = ['[海龙]', '[昊天]', '[虚神子]', '[火灵]'
+			, '[贝塔]', '[凌天]', '[伽罗]']
 			return strs[Math.floor(Math.random() * strs.length)]
 		},
 		randomSkillName: function() { // 随机获取技能名称
-			var strs = ['<狂风绝息斩>', '<面目全非脚>', '<还我漂漂拳>'
-			, '<德玛西亚之力>', '<断头台>', '<小学生之手>', '<疯狂乱锤>']
+			var strs = ['<古神一指>', '<十万尊魂帆>', '<化魔>'
+			, '<虚火>', '<翻天>', '<井底捞月>', '<焚天伞>']
 			return strs[Math.floor(Math.random() * strs.length)]
 		},
 		randomSkillDes: function(name) { // 随机获取技能描述
-			var strs = ['犹如一万只草泥马在' + name + '头上奔腾而过', '仿佛一万巴掌拍在' + name + '脸上'
-			, '好似一万升的酸雨在' + name + '脸上胡乱的拍'
-			, '像一道强烈的光束穿过' + name + '脆弱的身体'
-			, '像一颗原子弹直接砸在' + name + '的脸上'
-			,'周围皆都被他的吼声所震撼到了','空间大片开裂，狂风怒号，呼呼作响'
-			,'战刀之上，火焰雄浑','浩浩荡荡的火焰，仿佛泄洪一般','火舌怒舔，发出阵阵焦灼臭味'
-			,'仿佛是火山，堆积了数千年，一朝喷发，毁天灭地'
-			,'一拳轰出，天空瞬间形成一道巨大的拳影，宛若黄金浇铸'
-			,'仿佛金色龙影摧枯拉朽一般横冲直撞']
+			var strs = ['召唤出九条黑龙飓风在' + name + '身边旋转，突然冲向' + name + '身体'
+			, '召唤出千万魂魄朝向' + name + '嘶吼'
+			, '周身出现了无穷的虚幻火焰，将' + name + '包围在其中'
+			,'周遭景物仿佛置入水底，空中出现一只大手将' + name +'从中抓起'
+			,'伞开出现无尽的火焰将所在之地全部焚烧殆尽'
+			,'仿佛天地互换，万物出现了倾斜，让人心神受损'
+			,'一指指出，空中出现了巨大的虚影，宛如古神一指'
+			,'顷刻间，仿佛变为魔一般，身体周围弥漫着黑气，向着' + name + '冲去']
 			return strs[Math.floor(Math.random() * strs.length)]
 		},
 		randomEnemyDes: function() {
-			var strs = ['一只野生的', '一匹家养的', '一坨味道极浓的','一个看似很吊的','一根棒棒锤是的']
+			var strs = ['一个大耳修士', '一个来自远古家族的', '一个从秘境逃出的','一个看似很吊的','一个获得仙力的']
 			return strs[Math.floor(Math.random() * strs.length)]
 		},
 		randomMoveDes: function() { // 随机获取走位描述
@@ -213,8 +215,8 @@
 			return strs[Math.floor(Math.random() * strs.length)]
 		},
 		randomPlaceName: function() {
-			var strs = ['峡谷之巅', '艾欧尼亚', '瓜皮镇', '妓女村', '亚欧大陆', '珠穆朗玛峰'
-			,'沙漠','爱国村','洛杉矶','新加坡']
+			var strs = ['朱雀圣地', '古神之地', '炼魂宗', '蓝丝族', '远古仙域', '古仙界'
+			,'雨界','皇城',]
 			return strs[Math.floor(Math.random() * strs.length)]
 		},
 		randomGoAwayStr: function() {
