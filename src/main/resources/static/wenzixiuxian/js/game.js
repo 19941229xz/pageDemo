@@ -35,7 +35,7 @@
 		player: {
 			name: '盾天老祖',
 			life: 100,
-			ap: 63,
+			ap: 68,
 			protect: 52,
 			IQ: 15,
 			experience: 20,
@@ -46,7 +46,7 @@
 			level: 1,
 			name: '[普通敌人]',
 			life: 100,
-			ap: 47,
+			ap: 49,
 			protect: 34,
 			IQ: 12,
 		},
@@ -139,10 +139,10 @@
 			this.print(this.containerId, str, 'normal', null, 100)
 		},
 		calHurtValue: function(ap, pr) { //  计算每次攻击造成的伤害
-			if((ap - (Math.floor(pr * 0.3))) <= 0){
+			if((ap - (Math.floor(pr * 0.4))) <= 0){
 				return 5
 			}
-			return ap - (Math.floor(pr * 0.3))
+			return ap - (Math.floor(pr * 0.4))
 		},
 		calExperienceIfWin: function(player, enemy) { // 计算赢了获得多少经验
 			return Math.round((enemy.level / player.level) * 65)
@@ -154,7 +154,7 @@
 
 				this.player.level += levelNum
 				this.player.experience = tempEx - (100 * levelNum)
-				this.player.life = (playerHis.life + levelNum * 27)
+				this.player.life = (playerHis.life + levelNum * 35)
 				this.player.ap = Math.floor(playerHis.ap + levelNum * 1.2)
 				this.player.IQ = Math.floor(playerHis.IQ + levelNum * 0.2)
 				this.player.protect = Math.floor(playerHis.protect + levelNum * 0.8)
