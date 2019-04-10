@@ -93,7 +93,7 @@
 			var i = 1
 			var flag = true
 			while(flag) {
-				if(i % 2 != 0) {
+				if(i % 2 != 0) { 
 					var num = Math.random() * 100
 					if(num > this.enemy.IQ) {
 						str += (this.player.name + '使用技能' + this.randomSkillName() + '攻击了' +
