@@ -35,9 +35,9 @@
 		player: {
 			name: '@皮王',
 			life: 100,
-			ap: 88,
-			protect: 30,
-			IQ: 50,
+			ap: 58,
+			protect: 15,
+			IQ: 15,
 			experience: 50,
 			level: 1,
 			coin: 0
@@ -47,7 +47,7 @@
 			name: '[普通敌人]',
 			life: 100,
 			ap: 50,
-			protect: 30,
+			protect: 20,
 			IQ: 10
 		},
 		showPlayerInfo: function(player) {
@@ -152,9 +152,9 @@
 				this.player.level += levelNum
 				this.player.experience = tempEx - (100 * levelNum)
 				this.player.life = (playerHis.life + levelNum * 20)
-				this.player.ap = (playerHis.ap + levelNum * 10)
-				this.player.IQ = (playerHis.IQ + levelNum * 2)
-				this.player.protect = (playerHis.protect + levelNum * 10)
+				this.player.ap = (playerHis.ap + levelNum * 1)
+				this.player.IQ = (playerHis.IQ + levelNum * 0.2)
+				this.player.protect = (playerHis.protect + levelNum * 1)
 				return '叼毛你升了' + levelNum + '级！&'
 
 			} else {
@@ -175,10 +175,10 @@
 
 			this.enemy.level = level
 			this.enemy.name = this.randomEnemyName()
-			this.enemy.life = 100 + level * 20,
+			this.enemy.life = 100 + level * 10,
 				this.enemy.ap = 50 + level * 5,
-				this.enemy.protect = 30 + level * 5,
-				this.enemy.IQ = 10 + level * 1
+				this.enemy.protect = 20 + level * 5,
+				this.enemy.IQ = 10 + level * 0.1
 
 		},
 		randomEnemyName: function() { // 随机获取敌人的名字
