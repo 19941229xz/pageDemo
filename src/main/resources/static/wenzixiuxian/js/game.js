@@ -38,7 +38,7 @@
 			ap: 68,
 			protect: 52,
 			IQ: 15,
-			experience: 20,
+			experience: 35,
 			level: 1,
 			coin: 0
 		},
@@ -109,7 +109,7 @@
 						this.player.experience += exIfWin
 						str += ('&' + this.enemy.name + '被打死了#' + this.player.name + '赢了&')
 						str += ('&获得了' + exIfWin + '经验#' + this.levelUp(this.player, playerHistory))
-						str += ('战斗胜利，小息一会儿，血量恢复' + (this.player.level * 12) + '&')
+						str += ('战斗胜利，小息一会儿，血量恢复' + (this.enemy.level * 11) + '&')
 						
 						this.player.life += this.enemy.level * 11
 
@@ -118,7 +118,7 @@
 				} else {
 					var num = Math.random() * 100
 					if(num > this.player.IQ) {
-						str += (this.enemy.name + '使用技能' + this.randomSkillName() + '攻击了' + this.player.name + '一下,' + this.randomSkillDes(this.player.name) + '#造成了' +
+						str += (this.enemy.name + '使用技能' + this.randomSkillDes() + ' 对' + this.player.name + '#造成了' +
 							this.calHurtValue(this.enemy.ap, this.player.protect) + '点伤害&')
 						this.player.life -= this.calHurtValue(this.enemy.ap, this.player.protect)
 					} else {
@@ -139,7 +139,7 @@
 			}
 
 			//			console.log(str)
-			this.print(this.containerId, str, 'normal', null, 100)
+			this.print(this.containerId, str, 'random', null, 100)
 		},
 		calHurtValue: function(ap, pr) { //  计算每次攻击造成的伤害
 			if((ap - (Math.floor(pr * 0.4))) <= 0){
@@ -148,7 +148,7 @@
 			return ap - (Math.floor(pr * 0.4))
 		},
 		calExperienceIfWin: function(player, enemy) { // 计算赢了获得多少经验
-			return Math.round((enemy.level / player.level) * 65)
+			return Math.round((enemy.level / player.level) * 55)
 		},
 		levelUp: function(player, playerHis) { // 判断玩家的经验条 如果超过100 level +1  同时刷新经验条
 			var tempEx = player.experience
@@ -157,7 +157,7 @@
 
 				this.player.level += levelNum
 				this.player.experience = tempEx - (100 * levelNum)
-				this.player.life = (playerHis.life + levelNum * 18)
+				this.player.life = (playerHis.life + levelNum * 20)
 				this.player.ap = Math.floor(playerHis.ap + levelNum * 2.2)
 				this.player.IQ = Math.floor(playerHis.IQ + levelNum * 0.2)
 				this.player.protect = Math.floor(playerHis.protect + levelNum * 3.7)
@@ -182,7 +182,7 @@
 			this.enemy.level = level
 			this.enemy.name = this.randomEnemyName()
 			this.enemy.life = 100 + level * 14,
-				this.enemy.ap = Math.floor(38 + level * 2.4),
+				this.enemy.ap = Math.floor(39 + level * 2.4),
 				this.enemy.protect = Math.floor(34 + level * 2.2),
 				this.enemy.IQ = Math.floor(10 + level * 0.3)
 
@@ -192,20 +192,20 @@
 			, '[贝塔]', '[凌天]', '[伽罗]']
 			return strs[Math.floor(Math.random() * strs.length)]
 		},
-		randomSkillName: function() { // 随机获取技能名称
-			var strs = ['<古神一指>', '<十万尊魂帆>', '<化魔>'
-			, '<虚火>', '<翻天>', '<井底捞月>', '<焚天伞>']
-			return strs[Math.floor(Math.random() * strs.length)]
-		},
+//		randomSkillName: function() { // 随机获取技能名称
+//			var strs = ['<古神一指>', '<十万尊魂帆>', '<化魔>'
+//			, '', '<翻天>', '<井底捞月>', '<焚天伞>']
+//			return strs[Math.floor(Math.random() * strs.length)]
+//		},
 		randomSkillDes: function(name) { // 随机获取技能描述
 			var strs = ['召唤出九条黑龙飓风在' + name + '身边旋转，突然冲向' + name + '身体'
-			, '召唤出千万魂魄朝向' + name + '嘶吼'
-			, '周身出现了无穷的虚幻火焰，将' + name + '包围在其中'
-			,'周遭景物仿佛置入水底，空中出现一只大手将' + name +'从中抓起'
-			,'伞开出现无尽的火焰将所在之地全部焚烧殆尽'
-			,'仿佛天地互换，万物出现了倾斜，让人心神受损'
-			,'一指指出，空中出现了巨大的虚影，宛如古神一指'
-			,'顷刻间，仿佛变为魔一般，身体周围弥漫着黑气，向着' + name + '冲去']
+			, '<十万尊魂帆>,召唤出千万魂魄朝向' + name + '嘶吼'
+			, '<虚火>,周身出现了无穷的虚幻火焰，将' + name + '包围在其中'
+			,'<井底捞月>,周遭景物仿佛置入水底，空中出现一只大手将' + name +'从中抓起'
+			,'<焚天伞>,伞开出现无尽的火焰将所在之地全部焚烧殆尽'
+			,'<翻天>,仿佛天地互换，万物出现了倾斜，让人心神受损'
+			,'<古神一指>,一指指出，空中出现了巨大的虚影，宛如古神一指'
+			,'<化魔>,顷刻间，仿佛变为魔一般，身体周围弥漫着黑气，向着' + name + '冲去']
 			return strs[Math.floor(Math.random() * strs.length)]
 		},
 		randomEnemyDes: function() {
