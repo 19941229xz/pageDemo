@@ -110,6 +110,8 @@
 						str += ('&' + this.enemy.name + '被打死了#' + this.player.name + '赢了&')
 						str += ('&获得了' + exIfWin + '经验#' + this.levelUp(this.player, playerHistory))
 						str += ('战斗胜利，小息一会儿，血量恢复' + (this.player.level * 12) + '&')
+						
+						this.player.life += this.player.level * 12
 
 						flag = false
 					}
@@ -180,7 +182,7 @@
 			this.enemy.level = level
 			this.enemy.name = this.randomEnemyName()
 			this.enemy.life = 100 + level * 12,
-				this.enemy.ap = 38 + level * 2,
+				this.enemy.ap = Math.floor(38 + level * 2.4),
 				this.enemy.protect = Math.floor(34 + level * 1.7),
 				this.enemy.IQ = Math.floor(10 + level * 0.3)
 
