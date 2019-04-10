@@ -109,9 +109,9 @@
 						this.player.experience += exIfWin
 						str += ('&' + this.enemy.name + '被打死了#' + this.player.name + '赢了&')
 						str += ('&获得了' + exIfWin + '经验#' + this.levelUp(this.player, playerHistory))
-						str += ('战斗胜利，小息一会儿，血量恢复' + (this.enemy.level * 11) + '&')
+						str += ('战斗胜利，小息一会儿，血量恢复' + (this.enemy.level * 18) + '&')
 						
-						this.player.life += this.enemy.level * 11
+						this.player.life += this.enemy.level * 18
 
 						flag = false
 					}
@@ -142,10 +142,10 @@
 			this.print(this.containerId, str, 'random', null, 100)
 		},
 		calHurtValue: function(ap, pr) { //  计算每次攻击造成的伤害
-			if((ap - (Math.floor(pr * 0.4))) <= 0){
+			if((ap - (Math.floor(pr * 0.6)) <= 0){
 				return 5
 			}
-			return ap - (Math.floor(pr * 0.4))
+			return ap - (Math.floor(pr * 0.6))
 		},
 		calExperienceIfWin: function(player, enemy) { // 计算赢了获得多少经验
 			return Math.round((enemy.level / player.level) * 55)
@@ -157,7 +157,7 @@
 
 				this.player.level += levelNum
 				this.player.experience = tempEx - (100 * levelNum)
-				this.player.life = (playerHis.life + levelNum * 20)
+				this.player.life = (playerHis.life + levelNum * 25)
 				this.player.ap = Math.floor(playerHis.ap + levelNum * 2.2)
 				this.player.IQ = Math.floor(playerHis.IQ + levelNum * 0.2)
 				this.player.protect = Math.floor(playerHis.protect + levelNum * 3.7)
@@ -182,7 +182,7 @@
 			this.enemy.level = level
 			this.enemy.name = this.randomEnemyName()
 			this.enemy.life = 100 + level * 14,
-				this.enemy.ap = Math.floor(39 + level * 2.4),
+				this.enemy.ap = Math.floor(39 + level * 2.8),
 				this.enemy.protect = Math.floor(34 + level * 2.2),
 				this.enemy.IQ = Math.floor(10 + level * 0.3)
 
