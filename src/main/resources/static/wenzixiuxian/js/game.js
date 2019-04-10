@@ -154,10 +154,10 @@
 
 				this.player.level += levelNum
 				this.player.experience = tempEx - (100 * levelNum)
-				this.player.life = (playerHis.life + levelNum * 35)
-				this.player.ap = Math.floor(playerHis.ap + levelNum * 1.2)
+				this.player.life = (playerHis.life + levelNum * 45)
+				this.player.ap = Math.floor(playerHis.ap + levelNum * 3)
 				this.player.IQ = Math.floor(playerHis.IQ + levelNum * 0.2)
-				this.player.protect = Math.floor(playerHis.protect + levelNum * 0.8)
+				this.player.protect = Math.floor(playerHis.protect + levelNum * 5)
 				return '叼毛你升了' + levelNum + '级！&'
 
 			} else {
@@ -180,7 +180,7 @@
 			this.enemy.name = this.randomEnemyName()
 			this.enemy.life = 100 + level * 12,
 				this.enemy.ap = 38 + level * 2,
-				this.enemy.protect = Math.floor(34 + level * 0.9),
+				this.enemy.protect = Math.floor(34 + level * 1.7),
 				this.enemy.IQ = Math.floor(10 + level * 0.3)
 
 		},
