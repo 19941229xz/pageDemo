@@ -35,8 +35,8 @@
 		player: {
 			name: '盾天老祖',
 			life: 100,
-			ap: 58,
-			protect: 46,
+			ap: 63,
+			protect: 52,
 			IQ: 15,
 			experience: 20,
 			level: 1,
@@ -46,7 +46,7 @@
 			level: 1,
 			name: '[普通敌人]',
 			life: 100,
-			ap: 46,
+			ap: 47,
 			protect: 34,
 			IQ: 12,
 		},
@@ -145,7 +145,7 @@
 			return ap - (Math.floor(pr * 0.3))
 		},
 		calExperienceIfWin: function(player, enemy) { // 计算赢了获得多少经验
-			return Math.round((enemy.level / player.level) * 50)
+			return Math.round((enemy.level / player.level) * 65)
 		},
 		levelUp: function(player, playerHis) { // 判断玩家的经验条 如果超过100 level +1  同时刷新经验条
 			var tempEx = player.experience
@@ -154,7 +154,7 @@
 
 				this.player.level += levelNum
 				this.player.experience = tempEx - (100 * levelNum)
-				this.player.life = (playerHis.life + levelNum * 14)
+				this.player.life = (playerHis.life + levelNum * 27)
 				this.player.ap = Math.floor(playerHis.ap + levelNum * 1.2)
 				this.player.IQ = Math.floor(playerHis.IQ + levelNum * 0.2)
 				this.player.protect = Math.floor(playerHis.protect + levelNum * 0.8)
@@ -179,7 +179,7 @@
 			this.enemy.level = level
 			this.enemy.name = this.randomEnemyName()
 			this.enemy.life = 100 + level * 12,
-				this.enemy.ap = 50 + level * 2,
+				this.enemy.ap = 38 + level * 2,
 				this.enemy.protect = Math.floor(34 + level * 0.9),
 				this.enemy.IQ = Math.floor(10 + level * 0.3)
 
