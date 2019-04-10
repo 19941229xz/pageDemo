@@ -105,7 +105,7 @@
 							this.randomMoveDes() + '走位躲开了&')
 					}
 
-					if(this.enemy.life <= 0)
+					if(this.enemy.life <= 0){
 						this.player.experience += exIfWin
 						str += ('&' + this.enemy.name + '被打死了#' + this.player.name + '赢了&')
 						str += ('&获得了' + exIfWin + '经验#' + this.levelUp(this.player, playerHistory))
