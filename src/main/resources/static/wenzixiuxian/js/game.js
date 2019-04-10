@@ -126,6 +126,8 @@
 					if(this.player.life <= 0) {
 						str += (this.player.name + '被打死了#' + this.enemy.name + '赢了&')
 						this.player = playerHistory
+						alert('你娃挂了')
+						 window.location.reload()
 						flag = false
 					}
 				}
@@ -253,6 +255,9 @@
 				}
 			})
 
+		},
+		enhance:function(){
+			mui.toast('暂未达到修炼的等级')
 		}
 	}
 
