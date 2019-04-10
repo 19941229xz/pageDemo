@@ -105,10 +105,11 @@
 							this.randomMoveDes() + '走位躲开了&')
 					}
 
-					if(this.enemy.life <= 0) {
+					if(this.enemy.life <= 0)
 						this.player.experience += exIfWin
 						str += ('&' + this.enemy.name + '被打死了#' + this.player.name + '赢了&')
 						str += ('&获得了' + exIfWin + '经验#' + this.levelUp(this.player, playerHistory))
+						str += ('战斗胜利，小息一会儿，血量恢复' + (this.player.level * 12) + '&')
 
 						flag = false
 					}
@@ -154,7 +155,7 @@
 
 				this.player.level += levelNum
 				this.player.experience = tempEx - (100 * levelNum)
-				this.player.life = (playerHis.life + levelNum * 45)
+				this.player.life = (playerHis.life + levelNum * 18)
 				this.player.ap = Math.floor(playerHis.ap + levelNum * 3)
 				this.player.IQ = Math.floor(playerHis.IQ + levelNum * 0.2)
 				this.player.protect = Math.floor(playerHis.protect + levelNum * 5)
