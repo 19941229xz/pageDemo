@@ -96,8 +96,8 @@
 				if(i % 2 != 0) { 
 					var num = Math.random() * 100
 					if(num > this.enemy.IQ) {
-						str += (this.player.name + '使用技能' + this.randomSkillName() + '攻击了' +
-							this.enemy.name + '一下,' + this.randomSkillDes(this.enemy.name) + '#造成了' +
+						str += (this.player.name + '使用技能' + this.randomSkillDes(this.enemy.name) + '对' +
+							this.enemy.name + '#造成了' +
 							this.calHurtValue(this.player.ap, this.enemy.protect) + '点伤害&')
 						this.enemy.life -= this.calHurtValue(this.player.ap, this.enemy.protect)
 					} else {
@@ -118,7 +118,7 @@
 				} else {
 					var num = Math.random() * 100
 					if(num > this.player.IQ) {
-						str += (this.enemy.name + '使用技能' + this.randomSkillDes() + ' 对' + this.player.name + '#造成了' +
+						str += (this.enemy.name + '使用技能' + this.randomSkillDes(this.player.name) + ' 对' + this.player.name + '#造成了' +
 							this.calHurtValue(this.enemy.ap, this.player.protect) + '点伤害&')
 						this.player.life -= this.calHurtValue(this.enemy.ap, this.player.protect)
 					} else {
@@ -142,7 +142,7 @@
 			this.print(this.containerId, str, 'random', null, 100)
 		},
 		calHurtValue: function(ap, pr) { //  计算每次攻击造成的伤害
-			if((ap - (Math.floor(pr * 0.6)) <= 0){
+			if(ap - (Math.floor(pr * 0.6)) <= 0){
 				return 5
 			}
 			return ap - (Math.floor(pr * 0.6))
