@@ -46,7 +46,7 @@
 			level: 1,
 			name: '[普通敌人]',
 			life: 100,
-			ap: 49,
+			ap: 53,
 			protect: 34,
 			IQ: 12,
 		},
@@ -109,9 +109,9 @@
 						this.player.experience += exIfWin
 						str += ('&' + this.enemy.name + '被打死了#' + this.player.name + '赢了&')
 						str += ('&获得了' + exIfWin + '经验#' + this.levelUp(this.player, playerHistory))
-						str += ('战斗胜利，小息一会儿，血量恢复' + (this.enemy.level * 18) + '&')
+						str += ('战斗胜利，小息一会儿，血量恢复' + (Math.floor(this.enemy.level * 12.7)) + '&')
 						
-						this.player.life += this.enemy.level * 18
+						this.player.life += Math.floor(this.enemy.level * 12.7)
 
 						flag = false
 					}
@@ -139,7 +139,7 @@
 			}
 
 			//			console.log(str)
-			this.print(this.containerId, str, 'random', null, 100)
+			this.print(this.containerId, str, 'normal', null, 100)
 		},
 		calHurtValue: function(ap, pr) { //  计算每次攻击造成的伤害
 			if(ap - (Math.floor(pr * 0.6)) <= 0){
@@ -157,9 +157,9 @@
 
 				this.player.level += levelNum
 				this.player.experience = tempEx - (100 * levelNum)
-				this.player.life = (playerHis.life + levelNum * 25)
+				this.player.life = (playerHis.life + levelNum * 27)
 				this.player.ap = Math.floor(playerHis.ap + levelNum * 2.2)
-				this.player.IQ = Math.floor(playerHis.IQ + levelNum * 0.2)
+				this.player.IQ = Math.floor(playerHis.IQ + levelNum * 0.6)
 				this.player.protect = Math.floor(playerHis.protect + levelNum * 3.7)
 				return '叼毛你升了' + levelNum + '级！&'
 
@@ -182,9 +182,9 @@
 			this.enemy.level = level
 			this.enemy.name = this.randomEnemyName()
 			this.enemy.life = 100 + level * 14,
-				this.enemy.ap = Math.floor(39 + level * 2.8),
+				this.enemy.ap = Math.floor(45 + level * 3),
 				this.enemy.protect = Math.floor(34 + level * 2.2),
-				this.enemy.IQ = Math.floor(10 + level * 0.3)
+				this.enemy.IQ = Math.floor(10 + level * 0.5)
 
 		},
 		randomEnemyName: function() { // 随机获取敌人的名字
@@ -198,13 +198,13 @@
 //			return strs[Math.floor(Math.random() * strs.length)]
 //		},
 		randomSkillDes: function(name) { // 随机获取技能描述
-			var strs = ['召唤出九条黑龙飓风在' + name + '身边旋转，突然冲向' + name + '身体'
+			var strs = ['<呼风>召唤出九条黑色飓风在' + name + '身边旋转，突然冲向' + name + '身体'
 			, '<十万尊魂帆>,召唤出千万魂魄朝向' + name + '嘶吼'
 			, '<虚火>,周身出现了无穷的虚幻火焰，将' + name + '包围在其中'
 			,'<井底捞月>,周遭景物仿佛置入水底，空中出现一只大手将' + name +'从中抓起'
 			,'<焚天伞>,伞开出现无尽的火焰将所在之地全部焚烧殆尽'
 			,'<翻天>,仿佛天地互换，万物出现了倾斜，让人心神受损'
-			,'<古神一指>,一指指出，空中出现了巨大的虚影，宛如古神一指'
+			,'<古神一指>,一指指出，空中出现了巨大的虚影，宛如古神降临'
 			,'<化魔>,顷刻间，仿佛变为魔一般，身体周围弥漫着黑气，向着' + name + '冲去']
 			return strs[Math.floor(Math.random() * strs.length)]
 		},
@@ -240,7 +240,7 @@
 
 			document.getElementById(this.containerId).innerHTML = ''
 			document.getElementById(this.containerId).innerHTML = '向前走了' +
-				Math.floor(Math.random() * 100 + 1) + '里山路来到了' + this.randomPlaceName() + '&'
+				Math.floor(Math.random() * 100 + 1) + '里山路来到了' + this.randomPlaceName() + 'br /'
 
 			var that = this
 			var btnArray = ['干他', '认怂'];
