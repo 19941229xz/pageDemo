@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
+		<link href="https://cdn.bootcss.com/mui/3.7.1/css/mui.min.css" rel="stylesheet">
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+
+		<style type="text/css">
+			#dakaBtn {
+				margin: 65% auto;
+				border-radius: 50px;
+				width: 50%;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">实践体验班</h1>
+		</header>
+
+		<div class="mui-content" id="app">
+			<button v-bind:disabled="dis" @click="daka" id="dakaBtn" type="button" class="mui-btn mui-btn-primary mui-btn-block">
+		    	签到
+		    </button>
+		</div>
+
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="daka.html">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">打卡</span>
+			</a>
+			<a class="mui-tab-item" href="paihang.html">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">排行</span>
+			</a>
+		</nav>
+
+	</body>
+
+	<script type="text/javascript">
+		var app = new Vue({
+			el: "#app",
+			data: {
+				name: "",
+				dis:false
+			},
+			methods: {
+				daka: function() {
+
+					var that = this
+
+					var btnArray = ['取消', '确定'];
+					mui.prompt('请输入你的姓名：', '例如：蔡徐坤', '签到', btnArray, function(e) {
+						if(e.index == 1) {
+							//							info.innerText = '谢谢你的评语：' + e.value;
+							that.name = e.value
+							that.requestDakaData()
+						} else {}
+					})
+
+				},
+				requestDakaData: function() {
+					var name = this.name 
+					var time = new Date().toLocaleTimeString()
+					
+					console.log(name+' '+time)
+					var that = this
+					mui.ajax('http://localhost:8080/login/daka', {
+						data: {
+							name: this.name,
+						time: time
+						},
+						headers:{'Content-Type':'application/json'}	,
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						success: function(data) {
+							//获得服务器响应
+							console.log(data)
+							mui.toast(data.content)
+							if(data.content.indexOf('已经')>-1){
+								that.dis='111'
+							}
+						}
+					});
+
+//					mui.post('http://localhost:8080/login/daka', {
+//						name: this.name,
+//						time: new Date().toLocaleTimeString
+//					}, function(data) {
+//						//服务器返回响应，根据响应结果，分析是否登录成功；
+//						console.log(data)
+//
+//					}, 'json');
+				}
+
+			},
+			mounted: function() {
+				console.log('vue load  success')
+			}
+		})
+	</script>
+
+</html>

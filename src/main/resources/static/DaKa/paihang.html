@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<script src="https://cdn.bootcss.com/mui/3.7.1/js/mui.min.js"></script>
+		<link href="https://cdn.bootcss.com/mui/3.7.1/css/mui.min.css" rel="stylesheet">
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+
+		<style type="text/css">
+
+		</style>
+
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">签到排行榜</h1>
+		</header>
+
+		<div class="mui-content" id="app">
+			<ul class="mui-table-view">
+				<li v-for="(item, index)  in dakaList" class="mui-table-view-cell">{{ item.name }} 
+				
+				<span v-if="index == 0" class="mui-badge mui-badge-success">{{ index + 1}}</span>
+				<span v-else-if="index == 1" class="mui-badge mui-badge-primary">{{ index + 1}}</span>
+				<span v-else-if="index == 2" class="mui-badge mui-badge-warning">{{ index + 1}}</span>
+				<span v-else class="mui-badge mui-badge">{{ index + 1}}</span>
+				
+				</li>
+			</ul>
+		</div>
+
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item" href="daka.html">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">打卡</span>
+			</a>
+			<a class="mui-tab-item  mui-active" href="paihang.html">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">排行</span>
+			</a>
+		</nav>
+
+	</body>
+
+	<script type="text/javascript">
+		var app = new Vue({
+			el: "#app",
+			data: {
+				dakaList: []
+			},
+			methods: {
+				getDakaList: function() {
+					var that = this
+					mui.ajax('http://localhost:8080/login/paihang', {
+						data: {},
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						success: function(data) {
+							//获得服务器响应
+							console.log(data.content.length)
+							that.dakaList = data.content
+						}
+					});
+				}
+			},
+			mounted: function() {
+				console.log('vue load succsees')
+				this.getDakaList()
+			}
+		})
+	</script>
+
+</html>

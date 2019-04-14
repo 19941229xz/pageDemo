@@ -3,8 +3,10 @@ package com.example.demo.common;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.validation.Valid;
 
@@ -12,11 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.common.HttpCode;
@@ -28,6 +32,7 @@ import com.example.demo.common.req.WeixinRegisterParam;
 import com.example.demo.common.req.WexinLoginParam;
 import com.example.demo.common.util.HttpUtil;
 import com.example.demo.common.util.UUIDUtil;
+import com.example.demo.model.Daka;
 import com.example.demo.model.Menu;
 import com.example.demo.model.RoleAndMenu;
 import com.example.demo.model.User;
@@ -46,7 +51,10 @@ import io.swagger.annotations.ApiResponses;
 @Api(value="LoginControllerApi",description="登陆接口详细描述")
 @RestController
 @RequestMapping("login")
+@CrossOrigin
 public class LoginController{
+	
+	private List<Daka> dakaList = new ArrayList<Daka>();
 
 	@Autowired
     private UserService userService;
@@ -263,6 +271,31 @@ public class LoginController{
 		}
 		
 		return HttpResponse.success(menuList);
+	}
+	
+	
+	@ApiOperation(value = "/daka",notes = "学生打卡接口")
+    @PostMapping("/daka")
+    public Object daka(@RequestBody Daka daka){
+		
+	String[] des = new String[] {"优雅地","帅气地","调皮地","潇洒地","漂亮地"};	
+		
+	for (Daka temp : dakaList) {
+		if(temp.getName().equals(daka.getName())) {
+			return HttpResponse.success("今天已经打过卡了");
+		}
+	}
+		
+		dakaList.add(daka);
+		
+		return HttpResponse.success("您"+des[new Random().nextInt(des.length-1)]+"打了个卡");
+	}
+	
+	@ApiOperation(value = "/paihang",notes = "学生获取打卡排行接口")
+    @PostMapping("/paihang")
+    public Object paihang(){
+		
+		return HttpResponse.success(dakaList);
 	}
 	
 	
