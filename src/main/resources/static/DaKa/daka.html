@@ -63,6 +63,10 @@
 						if(e.index == 1) {
 							//							info.innerText = '谢谢你的评语：' + e.value;
 							that.name = e.value
+							if(e.value == ''){
+								mui.toast('名字不能为空')
+								return
+							}
 							that.requestDakaData()
 						} else {}
 					})
